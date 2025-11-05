@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Vision - Crear cuenta</title>
+    <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect" />
+    <link as="style"
+        href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900"
+        onload="this.rel='stylesheet'" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13a4ec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101c22",
+                        "foreground-light": "#0d171b",
+                        "foreground-dark": "#e7eff3",
+                        "card-light": "#ffffff",
+                        "card-dark": "#1a2831",
+                        "subtle-light": "#e7eff3",
+                        "subtle-dark": "#243641",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-foreground-light dark:text-foreground-dark">
+    <!--
+            Crear.html - formulario para crear una cuenta de usuario (demo)
+            Notas:
+            - Este formulario es solo de ejemplo y realiza validaciones en el cliente.
+            - Actualmente no se comunica con un servidor. Para persistir usuarios reales,
+                hay que implementar una API en el backend y substituir la llamada por fetch.
+            - El script al final valida campos (nombre, edad, email, teléfono) y muestra
+                mensajes de error. Se puede integrar con `Auth.updateUser` si se desea
+                registrar al usuario automáticamente en localStorage.
+        -->
+    <div class="flex flex-col min-h-screen">
+        <header class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
+            <div class="container mx-auto flex items-center justify-between whitespace-nowrap px-6 py-4">
+                <div class="flex items-center gap-3">
+                    <a href="Index.html">
+                        <button>
+                            <div class="w-8 h-8 text-primary">
+                                <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z"
+                                        fill="currentColor"></path>
+                                </svg>
+                            </div>
+                        </button>
+                    </a>
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white">Vision</h2>
+                </div>
+                <nav class="hidden md:flex items-center gap-8">
+                    <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
+                        href="Index.html"><button>Página principal</button></a>
+                    <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
+                        href="Servicios.html"><button>Servicios</button></a>
+                    <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
+                        href="Nosotros.html"><button>Sobre nosotros</button></a>
+                    <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
+                        href="mensaje.html"><button>Contacto</button></a>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <a href="login.html"><button
+                            class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-primary text-white text-sm font-bold shadow-lg hover:bg-primary/90 transition-colors">Inicia
+                            sesión</button></a>
+                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCVwv-zS-uQ4jQkoGZ114abTXXqEX-c3xiMOh4s9_EPt3GoQHd2WOeJroq3oiNMJ5KbtQTAAOn3wilUGvp35adPvzlib0BCn49l08Y2GYRjAgMMB33pGCdMy3aH7BkrVr0zOMB7JBdAMbPVcwVbPmszNA3ZAPvuVoXQl6KpwehiIbxoBrP88-Pn3ersPqFfletB5gpscpKA2UzFNq6fD5hl5rscKhRFMCGk0b_mTq6GuUVUy_7PJmi8Mrle6oVB8KXkA79J6SO6FbA");'>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!--
+                    main: contiene el formulario de creación
+                    - Si el equipo desea que la cuenta creada inicie sesión automáticamente,
+                        pueden llamar a window.Auth.updateUser(...) y window.Auth.login(...)
+                        (o modificar auth.js para aceptar creación de usuario).
+                -->
+        <main class="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+            <div class="w-full max-w-md space-y-8">
+                <div class="bg-card-light dark:bg-card-dark p-8 rounded-lg shadow-md">
+                    <div class="text-center">
+                        <h2 class="text-3xl font-extrabold text-foreground-light dark:text-foreground-dark">Crear tu
+                            cuenta</h2>
+                        <p class="mt-2 text-sm text-foreground-light/70 dark:text-foreground-dark/70">Completa los datos
+                            para crear tu cuenta.</p>
+                    </div>
+                    <div class="mt-8">
+
+                        <form id="createForm" action="create.js" method="POST" class="space-y-6" novalidate>
+                            <!-- Contenedor para mensajes (errores/éxito) -->
+                            <div id="formAlert" role="status" aria-live="polite" class="hidden rounded-md p-3 text-sm"></div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-foreground-light dark:text-foreground-dark" for="first-name">Nombre</label>
+                                    <div class="mt-1">
+                                        <input id="first-name" name="first-name" required type="text" placeholder="Ingresa tu nombre" class="appearance-none block w-full px-3 py-3 border-0 rounded bg-subtle-light dark:bg-subtle-dark placeholder-foreground-light/50 dark:placeholder-foreground-dark/50 focus:outline-none focus:ring-2 focus:ring-primary transition-shadow" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-foreground-light dark:text-foreground-dark" for="last-name">Apellidos</label>
+                                    <div class="mt-1">
+                                        <input id="last-name" name="last-name" required type="text" placeholder="Ingresa tus apellidos" class="appearance-none block w-full px-3 py-3 border-0 rounded bg-subtle-light dark:bg-subtle-dark placeholder-foreground-light/50 dark:placeholder-foreground-dark/50 focus:outline-none focus:ring-2 focus:ring-primary transition-shadow" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-foreground-light dark:text-foreground-dark" for="age">Edad</label>
+                                    <div class="mt-1">
+                                        <input id="age" name="age" required type="number" min="0" placeholder="Ej: 25" class="appearance-none block w-full px-3 py-3 border-0 rounded bg-subtle-light dark:bg-subtle-dark focus:outline-none focus:ring-2 focus:ring-primary transition-shadow" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-foreground-light dark:text-foreground-dark" for="phone">Teléfono</label>
+                                    <div class="mt-1">
+                                        <input id="phone" name="phone" required type="tel" placeholder="+591 7xxxxxxx" class="appearance-none block w-full px-3 py-3 border-0 rounded bg-subtle-light dark:bg-subtle-dark focus:outline-none focus:ring-2 focus:ring-primary transition-shadow" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-foreground-light dark:text-foreground-dark" for="email">Correo electrónico</label>
+                                <div class="mt-1">
+                                    <input id="email" name="email" required type="email" placeholder="tu@correo.com" class="appearance-none block w-full px-3 py-3 border-0 rounded bg-subtle-light dark:bg-subtle-dark focus:outline-none focus:ring-2 focus:ring-primary transition-shadow" />
+                                </div>
+                            </div>
+                             <div>
+                                <label class="block text-sm font-medium text-foreground-light dark:text-foreground-dark" for="contrasenna">Contraseña</label>
+                                <div class="mt-1">
+                                    <input id="password" name="password" required type="password" placeholder="Contraseña" class="appearance-none block w-full px-3 py-3 border-0 rounded bg-subtle-light dark:bg-subtle-dark focus:outline-none focus:ring-2 focus:ring-primary transition-shadow" />
+                                </div>
+                            </div>
+
+                            <div>
+                                <button id="createSubmit" type="submit" class="w-full bg-primary text-white font-bold text-sm px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors">Crear cuenta</button>
+                            </div>
+                        </form>
+                    
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    
+    <script src="create.js"></script>
+</body>
+
+</html>

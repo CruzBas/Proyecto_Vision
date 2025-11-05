@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title> Vision</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#13a4ec",
+            "background-light": "#f6f7f8",
+            "background-dark": "#101c22",
+          },
+          fontFamily: {
+            "display": ["Inter"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.5rem",
+            "lg": "1rem",
+            "xl": "1.5rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    .text-shadow {
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    }
+  </style>
+</head>
+
+<!--
+  Index.html - Página principal
+  Comentarios en español agregados para que el equipo entienda la estructura y
+  cómo interactúa con `auth.js`.
+
+  Puntos clave:
+  - Tailwind se carga vía CDN y configura colores/fuentes en el <head>.
+  - `auth.js` (incluido al final) controla el estado de autenticación,
+    deshabilita enlaces protegidos y convierte el enlace de login en "Cerrar sesión".
+  - Las secciones principales son: header (navegación), main (contenidos) y footer.
+  - Si necesitan cambiar rutas protegidas (p. ej. Reserva.html), editar `auth.js`.
+-->
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+  <div class="relative min-h-screen w-full">
+    <div class="layout-container flex h-full grow flex-col">
+      <header class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
+        <div class="container mx-auto flex items-center justify-between whitespace-nowrap px-6 py-4">
+          <div class="flex items-center gap-3">
+            <a href="Index.html">
+          <button>
+            <div class="w-8 h-8 text-primary">
+              <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z"
+                  fill="currentColor"></path>
+              </svg>
+            </div>
+          </button>
+        </a>
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white"> Vision</h2>
+          </div>
+          <nav class="hidden md:flex items-center gap-8">
+            <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
+              href="Nosotros.html"><button>Sobre nosotros</button></a>
+            <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
+              href="Servicios.html"><button>Servicios</button></a>
+            <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
+              href="mensaje.html"><button>
+                Contacto
+              </button></a>
+          </nav>
+          <div class="flex items-center gap-4">
+            <a href="login.html">
+              <button
+                class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-primary text-white text-sm font-bold shadow-lg hover:bg-primary/90 transition-colors">
+                <span class="truncate">Inicio de Sesion</span>
+              </button>
+            </a>
+            <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
+              style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCVwv-zS-uQ4jQkoGZ114abTXXqEX-c3xiMOh4s9_EPt3GoQHd2WOeJroq3oiNMJ5KbtQTAAOn3wilUGvp35adPvzlib0BCn49l08Y2GYRjAgMMB33pGCdMy3aH7BkrVr0zOMB7JBdAMbPVcwVbPmszNA3ZAPvuVoXQl6KpwehiIbxoBrP88-Pn3ersPqFfletB5gpscpKA2UzFNq6fD5hl5rscKhRFMCGk0b_mTq6GuUVUy_7PJmi8Mrle6oVB8KXkA79J6SO6FbA");'>
+            </div>
+
+          </div>
+        </div>
+      </header>
+      <main class="flex-1">
+        <section class="relative h-[60vh] min-h-[480px] flex items-center justify-center text-center bg-cover bg-center"
+          style='background-image: linear-gradient(rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.6) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuAFB9hcX9kiZ-vmOwUzNDRCiNJkJrGVisU6Eh-UaaTVSRqx7xTZq9357HDxuOTPBddCSt93DoajchgEfqQcUzB2kTY8sysTRVkVQpoNs1mTty5XPM31dN9LyJrSCTh0IE2nvE0iyYXHkyncTXAWZidk2TT57K-weJnxh9pLk-tE-DmSOYVU0dKVIM6hljv1XW6tgBV4OrfOKb-0zDFuNex79b9OSEge3JQbyj-c5OCLp1ReBopncVCYtofzEcZHvkP53xC0hZuh_Xk");'>
+          <div class="container mx-auto px-6 max-w-4xl">
+            <h1 class="text-4xl md:text-6xl font-black text-white text-shadow leading-tight">Tu mente, tu rumbo, tu
+              visión.</h1>
+            <p class="mt-4 text-lg md:text-xl text-white/90 text-shadow max-w-3xl mx-auto">
+              Bienvenido(a) a Visión, un espacio pensado para jóvenes que buscan cuidar su salud mental y descubrir su
+              mejor versión.
+              Aquí podés reservar tus citas fácilmente, hablar con profesionales en psicología y dar el primer paso
+              hacia una mente más clara y un futuro con propósito.
+            </p>
+            <a href="Nosotros.html"
+              class="mt-8 inline-flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-8 bg-primary text-white text-base font-bold shadow-xl hover:bg-primary/90 transition-transform transform hover:scale-105 mx-auto">
+              <span class="truncate">Sobre Nosotros</span>
+            </a>
+          </div>
+        </section>
+        <section class="py-16 sm:py-24">
+          <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto">
+              <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">Nuestros servicios</h2>
+              <p class="mt-4 text-lg text-gray-600 dark:text-gray-400">
+                Ofrecemos una variedad de servicios diseñados para apoyar la salud mental de los jóvenes, desde terapia
+                individual hasta sesiones grupales y talleres.
+              </p>
+            </div>
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div
+                class="bg-background-light dark:bg-background-dark border border-gray-200 dark:border-gray-700 rounded-lg p-6 flex flex-col items-center text-center transition-shadow hover:shadow-lg">
+                <div class="bg-primary/10 dark:bg-primary/20 rounded-full p-4">
+                  <svg class="text-primary" fill="currentColor" height="32px" viewBox="0 0 256 256" width="32px"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,1,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z">
+                    </path>
+                  </svg>
+                </div>
+                <h3 class="mt-5 text-xl font-bold text-gray-900 dark:text-white"> Terapia individual</h3>
+                <p class="mt-2 text-gray-600 dark:text-gray-400">Sesiones de terapia personalizadas, individuales, para
+                  abordar necesidades y desafíos específicos.</p>
+              </div>
+              <div
+                class="bg-background-light dark:bg-background-dark border border-gray-200 dark:border-gray-700 rounded-lg p-6 flex flex-col items-center text-center transition-shadow hover:shadow-lg">
+                <div class="bg-primary/10 dark:bg-primary/20 rounded-full p-4">
+                  <svg class="text-primary" fill="currentColor" height="32px" viewBox="0 0 256 256" width="32px"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Zm-96-88v64a8,8,0,0,1-16,0V132.94l-4.42,2.22a8,8,0,0,1-7.16-14.32l16-8A8,8,0,0,1,112,120Zm59.16,30.45L152,176h16a8,8,0,0,1,0,16H136a8,8,0,0,1-6.4-12.8l28.78-38.37A8,8,0,1,0,145.07,132a8,8,0,1,1-13.85-8A24,24,0,0,1,176,136,23.76,23.76,0,0,1,171.16,150.45Z">
+                    </path>
+                  </svg>
+                </div>
+                <h3 class="mt-5 text-xl font-bold text-gray-900 dark:text-white">Sesiones de Grupo</h3>
+                <p class="mt-2 text-gray-600 dark:text-gray-400">Sesiones grupales interactivas que fomentan el apoyo
+                  entre pares y el intercambio de experiencias.</p>
+              </div>
+              <div
+                class="bg-background-light dark:bg-background-dark border border-gray-200 dark:border-gray-700 rounded-lg p-6 flex flex-col items-center text-center transition-shadow hover:shadow-lg">
+                <div class="bg-primary/10 dark:bg-primary/20 rounded-full p-4">
+                  <svg class="text-primary" fill="currentColor" height="32px" viewBox="0 0 256 256" width="32px"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M140,128a12,12,0,1,1-12-12A12,12,0,0,1,140,128ZM84,116a12,12,0,1,0,12,12A12,12,0,0,0,84,116Zm88,0a12,12,0,1,0,12,12A12,12,0,0,0,172,116Zm60,12A104,104,0,0,1,79.12,219.82L45.07,231.17a16,16,0,0,1-20.24-20.24l11.35-34.05A104,104,0,1,1,232,128Zm-16,0A88,88,0,1,0,51.81,172.06a8,8,0,0,1,.66,6.54L40,216,77.4,203.53a7.85,7.85,0,0,1,2.53-.42,8,8,0,0,1,4,1.08A88,88,0,0,0,216,128Z">
+                    </path>
+                  </svg>
+                </div>
+                <h3 class="mt-5 text-xl font-bold text-gray-900 dark:text-white">Talleres</h3>
+                <p class="mt-2 text-gray-600 dark:text-gray-400">Talleres educativos sobre diversos temas de salud
+                  mental y estrategias de afrontamiento.</p>
+              </div>
+            </div>
+
+          </div>
+        </section>
+        <section class="py-16 sm:py-24 bg-background-light dark:bg-gray-900/50">
+          <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto">
+              <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">Conoce a nuestro equipo
+                comprometido</h2>
+              <p class="mt-4 text-lg text-gray-600 dark:text-gray-400">
+                Nuestro equipo de psicólogos experimentados está dedicado a brindar una atención efectiva en un entorno
+                seguro y de apoyo.
+
+              </p>
+            </div>
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div class="group">
+                <div class="overflow-hidden rounded-lg">
+                  <div
+                    class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg transition-transform duration-500 group-hover:scale-105"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCjZuvLPkWnQztC1Z6d9C6JXKgx2Lb2NFBSViWF-ea89LE8xawxuZyRncpAAD7aFde0PwkwWfVN_FwzYaDl6nX9SUSxwBjuYn5W3SFQMlOYncENIQR5-LM9PtGkJxnRCO4qNmxrlhFYHs47yKMDwR1UVHufMF4YS9wdgRNMxUeRGKNskdCaQKm-bJ2bn0HNPbafGzQ8PbQQF2Je5QhclhkuR0Fy4iYS5NalmwZPhWzaq9ceIHu64bCk9XwqRl7tXbfkwcY-8-l9HLA");'>
+                  </div>
+                </div>
+                <div class="mt-4 text-center">
+                  <p class="text-lg font-bold text-gray-900 dark:text-white">Dr. Amelia Carter</p>
+                  <p class="text-sm text-gray-600 dark:text-gray-400">Especialista en psicología adolescente</p>
+                </div>
+              </div>
+              <div class="group">
+                <div class="overflow-hidden rounded-lg">
+                  <div
+                    class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg transition-transform duration-500 group-hover:scale-105"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBuQ1sXslXhVUfDxK6a5DW_I8YHGs3gMVJhOjvspl27wzungYezrZG0XQOW6TUjYtt6WvH6IZTgWmW_sRQBHc2j0srzX3ENEe-tNTGk42p5CtvDce-BjLiFFJOuIwuKEe4kbjHti_GfO5YKAHbnQxmDjdZIyMDR-YjUCQDd7t1sUGMM5g57VcqM62YrcfYDzE_cvOPlLEMfspwBC4P5asDV5z8MJ8zU1G57NRLd5Pi3XOTgR8dy6Mz8XKldhp4TzActkTC-NYtFnnE");'>
+                  </div>
+                </div>
+                <div class="mt-4 text-center">
+                  <p class="text-lg font-bold text-gray-900 dark:text-white">Dr. Ethan Bennett</p>
+                  <p class="text-sm text-gray-600 dark:text-gray-400">Experto en TCC (Terapia Cognitivo-Conductual) y
+                    mindfulness.</p>
+                </div>
+              </div>
+              <div class="group">
+                <div class="overflow-hidden rounded-lg">
+                  <div
+                    class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg transition-transform duration-500 group-hover:scale-105"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAs0iAaSBdfTFUamwHCX7rNRc3zTmGu9_aYY6Fm7gFbiq_3gvf2_tijA4pz6bTILOa_tNCjADSdPQDri3xYGwf2MF9U3hN5NDxUuurDeHW_v6GoZQUF6HrFYZG-8QBfnLeYjST9v4kJjkIPXeqd19G6EcajB3w9d5kZxlbDREz5GZMMafTdhQ6_5nX7zoijXG_bels6WwnM2sB-t5jCB0P9IfG2F_gzAMsmpzNbxqc5RGcPE5_cfln4X9axme32tw138xM99qXM1PU");'>
+                  </div>
+                </div>
+                <div class="mt-4 text-center">
+                  <p class="text-lg font-bold text-gray-900 dark:text-white">Dr. Sophia Clark</p>
+                  <p class="text-sm text-gray-600 dark:text-gray-400">Se enfoca en crear entornos de apoyo.</p>
+                </div>
+              </div>
+            </div>
+            <div class="mt-12 text-center">
+
+            </div>
+          </div>
+        </section>
+        <section class="py-16 sm:py-24">
+          <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">¿Listo(a) para comenzar tu camino?
+            </h2>
+            <p class="mt-4 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              Reserva tu primera cita hoy y da el primer paso hacia una versión más saludable y feliz de ti. Estamos
+              aquí para ayudarte.
+            </p>
+            <div class="mt-8">
+              <a href="Reserva.html"
+                class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-8 bg-primary text-white text-base font-bold shadow-xl hover:bg-primary/90 transition-transform transform hover:scale-105 mx-auto">
+                <span class="truncate">Reserva tu primera cita</span>
+              </a>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer class="bg-background-light dark:bg-background-dark border-t border-gray-200 dark:border-gray-800">
+        <div class="container mx-auto px-6 py-8">
+          <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-2">
+              <svg class="h-6 w-6 text-primary" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z"
+                  fill="currentColor"></path>
+              </svg>
+              <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Vision</span>
+            </div>
+            <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
+              <a class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary" href="Politica.html"><button>Politica de privacidad</button></a>
+
+              <a class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary" href="Terminos.html"><button>Terminos y
+                condiciones</button></a>
+            </nav>
+            <p class="text-sm text-gray-500 dark:text-gray-400">© 2025 Vision. Todos los derechos reservados.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+</body>
+
+</html>
+
+<script src="auth.js"></script>

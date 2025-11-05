@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Términos y condiciones - Vision</title>
+    <link href="data:image/x-icon;base64," rel="icon" type="image/x-icon" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13a4ec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101c22",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap"
+        rel="stylesheet" />
+</head>
+
+<!--
+    Terminos.html - Términos y condiciones
+    - Página estática con texto legal. Contiene auth.js al final para controles de sesión
+        en la interfaz (por ejemplo, mostrar avatar o cambiar enlace de login).
+-->
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+        <div class="flex flex-col min-h-screen">
+        <header class="bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm sticky top-0 z-10">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-20 border-b border-primary/20">
+                    <div class="flex items-center gap-4">
+                        <div class="text-primary h-8 w-8">
+                            <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#clip0_6_319)">
+                                    <path
+                                        d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z"
+                                        fill="currentColor"></path>
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_6_319">
+                                        <rect fill="white" height="48" width="48"></rect>
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                        </div>
+                        <h2 class="text-xl font-bold">Vision</h2>
+                    </div>
+                    <nav class="hidden md:flex items-center gap-8">
+                        <a class="text-sm font-medium hover:text-primary transition-colors" href="Index.html">Página
+                            principal</a>
+                        <a class="text-sm font-medium hover:text-primary transition-colors"
+                            href="Servicios.html">Servicios</a>
+                        <a class="text-sm font-medium hover:text-primary transition-colors" href="Nosotros.html">Sobre
+                            nosotros</a>
+                        <a class="text-sm font-medium hover:text-primary transition-colors"
+                            href="mensaje.html">Contacto</a>
+                    </nav>
+                    <a href="Reserva.html"
+                        class="inline-block bg-primary text-white font-bold text-sm px-6 py-2.5 rounded-lg hover:bg-primary/90 transition-colors shadow-md">Reservar cita</a>
+                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ml-4"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCVwv-zS-uQ4jQkoGZ114abTXXqEX-c3xiMOh4s9_EPt3GoQHd2WOeJroq3oiNMJ5KbtQTAAOn3wilUGvp35adPvzlib0BCn49l08Y2GYRjAgMMB33pGCdMy3aH7BkrVr0zOMB7JBdAMbPVcwVbPmszNA3ZAPvuVoXQl6KpwehiIbxoBrP88-Pn3ersPqFfletB5gpscpKA2UzFNq6fD5hl5rscKhRFMCGk0b_mTq6GuUVUy_7PJmi8Mrle6oVB8KXkA79J6SO6FbA");'>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main class="flex-grow">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+                <div class="max-w-4xl mx-auto">
+                    <div class="mb-12 text-center">
+                        <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                            Términos y condiciones</h1>
+                        <p class="mt-4 text-lg text-gray-600 dark:text-gray-400">Última actualización: 26 de julio de
+                            2024</p>
+                    </div>
+                    <div class="space-y-10">
+                        <div class="space-y-4">
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">1. Aceptación de los términos
+                            </h3>
+                            <p class="text-base leading-relaxed text-gray-700 dark:text-gray-300">
+                                Al acceder o usar el sitio y los servicios de Vision, aceptas estar sujeto a estos
+                                Términos y Condiciones. Si no estás de acuerdo, por favor no utilices nuestros
+                                servicios.
+                            </p>
+                        </div>
+                        <div class="space-y-4">
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">2. Servicios</h3>
+                            <p class="text-base leading-relaxed text-gray-700 dark:text-gray-300">
+                                Vision ofrece servicios de psicología para jóvenes, incluyendo terapia individual,
+                                consultas y talleres. Nuestro objetivo es apoyar la salud mental y el bienestar a través
+                                de atención profesional.
+                            </p>
+                        </div>
+                        <div class="space-y-4">
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">3. Citas y cancelaciones</h3>
+                            <p class="text-base leading-relaxed text-gray-700 dark:text-gray-300">
+                                Las citas deben programarse con antelación mediante nuestro sistema de reservas. Las
+                                cancelaciones deben realizarse al menos 24 horas antes de la cita para evitar cargos.
+                                Cancelaciones tardías o inasistencias pueden tener costo.
+                            </p>
+                        </div>
+                        <div class="space-y-4">
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">4. Confidencialidad</h3>
+                            <p class="text-base leading-relaxed text-gray-700 dark:text-gray-300">
+                                Nos comprometemos a mantener la confidencialidad de tu información personal y de las
+                                sesiones. La información compartida se mantendrá confidencial, salvo cuando la ley exija
+                                su divulgación (por ejemplo, riesgo de daño).
+                            </p>
+                        </div>
+                        <div class="space-y-4">
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">5. Pago</h3>
+                            <p class="text-base leading-relaxed text-gray-700 dark:text-gray-300">
+                                El pago por los servicios vence en el momento de la reserva o según lo acordado.
+                                Aceptamos varias formas de pago según se especifique en el sitio. Las tarifas pueden
+                                cambiar con previo aviso.
+                            </p>
+                        </div>
+                        <div class="space-y-4">
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">6. Conducta del usuario</h3>
+                            <p class="text-base leading-relaxed text-gray-700 dark:text-gray-300">
+                                Debes usar nuestros servicios de forma respetuosa y conforme a la ley. El uso indebido
+                                (acoso, conductas abusivas o violación de derechos) puede implicar la suspensión o
+                                término del servicio.
+                            </p>
+                        </div>
+                        <div class="space-y-4">
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">7. Renuncia de responsabilidad
+                            </h3>
+                            <p class="text-base leading-relaxed text-gray-700 dark:text-gray-300">
+                                Vision ofrece apoyo y orientación, pero no sustituye un servicio de intervención en
+                                crisis. Si estás en una situación de emergencia, contacta con los servicios de
+                                emergencia o una línea de crisis inmediatamente.
+                            </p>
+                        </div>
+                        <div class="space-y-4">
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">8. Cambios en los términos</h3>
+                            <p class="text-base leading-relaxed text-gray-700 dark:text-gray-300">
+                                Nos reservamos el derecho a modificar estos Términos y Condiciones. Los cambios se
+                                publicarán en el sitio y el uso continuado constituye aceptación de los mismos.
+                            </p>
+                        </div>
+                        <div class="space-y-4">
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">9. Contáctanos</h3>
+                            <p class="text-base leading-relaxed text-gray-700 dark:text-gray-300">
+                                Si tienes preguntas o dudas sobre estos Términos y Condiciones, contáctanos en <a
+                                    class="text-primary hover:underline"
+                                    href="mailto:support@vision.com">support@vision.com</a>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="bg-background-light dark:bg-background-dark border-t border-primary/20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="flex flex-wrap justify-center gap-x-6 gap-y-2">
+                        <a class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary"
+                            href="Politica.html">Política de privacidad</a>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">© 2025 Vision. Todos los derechos reservados.
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+</body>
+
+</html>
+
+<script src="auth.js"></script>

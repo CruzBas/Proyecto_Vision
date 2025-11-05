@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Política de privacidad - Vision</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13a4ec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101c22",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+
+<!--
+    Politica.html - Política de privacidad
+    - Página informativa que explica cómo se manejan datos. auth.js se incluye al final
+        para habilitar UX relacionado con sesión (avatar, login/logout).
+-->
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-800 dark:text-slate-200">
+        <div class="min-h-screen flex flex-col">
+        <header
+            class="bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm sticky top-0 z-50 border-b border-slate-200 dark:border-slate-800">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex items-center gap-3">
+                        <div class="text-primary h-8 w-8">
+                            <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#clip0_6_319)">
+                                    <path
+                                        d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z"
+                                        fill="currentColor"></path>
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_6_319">
+                                        <rect fill="white" height="48" width="48"></rect>
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                        </div>
+                        <h1 class="text-xl font-bold text-slate-900 dark:text-white">Vision</h1>
+                    </div>
+                    <nav class="hidden md:flex items-center gap-8">
+                        <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors"
+                            href="Index.html">Página principal</a>
+                        <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors"
+                            href="Servicios.html">Servicios</a>
+                        <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors"
+                            href="Nosotros.html">Sobre nosotros</a>
+                        <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors"
+                            href="mensaje.html">Contacto</a>
+                    </nav>
+                    <div class="flex items-center">
+                        <a href="Reserva.html"
+                            class="inline-block bg-primary text-white font-bold text-sm px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors">Reservar cita</a>
+                        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ml-4"
+                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCVwv-zS-uQ4jQkoGZ114abTXXqEX-c3xiMOh4s9_EPt3GoQHd2WOeJroq3oiNMJ5KbtQTAAOn3wilUGvp35adPvzlib0BCn49l08Y2GYRjAgMMB33pGCdMy3aH7BkrVr0zOMB7JBdAMbPVcwVbPmszNA3ZAPvuVoXQl6KpwehiIbxoBrP88-Pn3ersPqFfletB5gpscpKA2UzFNq6fD5hl5rscKhRFMCGk0b_mTq6GuUVUy_7PJmi8Mrle6oVB8KXkA79J6SO6FbA");'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+            <div class="max-w-4xl mx-auto">
+                <div class="mb-12 text-center">
+                    <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                        Política de privacidad</h2>
+                    <p class="mt-4 text-lg text-slate-600 dark:text-slate-400">Tu privacidad es importante para
+                        nosotros. A continuación explicamos cómo protegemos y usamos tu información.</p>
+                </div>
+                <div
+                    class="space-y-10 prose prose-lg dark:prose-invert max-w-none prose-headings:font-bold prose-headings:text-slate-900 dark:prose-headings:text-white prose-p:text-slate-600 dark:prose-p:text-slate-300 prose-a:text-primary hover:prose-a:text-primary/80">
+                    <div class="p-8 bg-white/50 dark:bg-background-dark/50 rounded-lg">
+                        <h3 class="text-2xl font-bold mb-4">Nuestro compromiso</h3>
+                        <p>En Vision estamos comprometidos a proteger tu privacidad y garantizar la confidencialidad de
+                            tus datos personales. Esta política explica de forma clara qué datos recolectamos, para qué
+                            los usamos y cómo los protegemos.</p>
+                    </div>
+                    <div class="p-8 bg-white/50 dark:bg-background-dark/50 rounded-lg">
+                        <h3 class="text-2xl font-bold mb-4">Información que recogemos</h3>
+                        <p>Podemos recopilar información personal cuando interactúas con nuestro sitio o usas nuestros
+                            servicios, como tu nombre, correo, teléfono, edad y cualquier otra información que decidas
+                            compartir. También recopilamos datos no personales (por ejemplo, el tipo de navegador) para
+                            mejorar la experiencia.</p>
+                    </div>
+                    <div class="p-8 bg-white/50 dark:bg-background-dark/50 rounded-lg">
+                        <h3 class="text-2xl font-bold mb-4">Cómo usamos tu información</h3>
+                        <p>Usamos tu información para ofrecer nuestros servicios, como agendar citas o responder tus
+                            consultas. También la usamos para personalizar tu experiencia en el sitio. No compartiremos
+                            tus datos personales sin tu permiso, salvo que la ley lo exija.</p>
+                    </div>
+                    <div class="p-8 bg-white/50 dark:bg-background-dark/50 rounded-lg">
+                        <h3 class="text-2xl font-bold mb-4">Seguridad de los datos</h3>
+                        <p>Adoptamos medidas para proteger tu información frente a accesos no autorizados y empleamos
+                            prácticas estándar de la industria. Aunque nadie puede garantizar seguridad absoluta en
+                            internet, trabajamos para mantener tus datos lo más seguros posible.</p>
+                    </div>
+                    <div class="p-8 bg-white/50 dark:bg-background-dark/50 rounded-lg">
+                        <h3 class="text-2xl font-bold mb-4">Tus derechos</h3>
+                        <p>Tienes derecho a acceder, corregir o eliminar tus datos personales. Si quieres ejercer estos
+                            derechos o tienes dudas, contáctanos a través de la página de contacto. Estamos para
+                            ayudarte.</p>
+                    </div>
+                    <div class="p-8 bg-white/50 dark:bg-background-dark/50 rounded-lg">
+                        <h3 class="text-2xl font-bold mb-4">Cambios en esta política</h3>
+                        <p>Podemos actualizar esta política ocasionalmente. Si realizamos cambios importantes, los
+                            publicaremos en esta página. Te recomendamos revisarla de vez en cuando para estar al día.
+                        </p>
+                    </div>
+                </div>
+                <div class="mt-12 text-center">
+                    <p class="text-sm text-slate-500 dark:text-slate-400">Última actualización: 26 de octubre de 2024
+                    </p>
+                </div>
+            </div>
+        </main>
+        <footer class="bg-background-light dark:bg-background-dark border-t border-slate-200 dark:border-slate-800">
+            <div
+                class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-sm text-slate-500 dark:text-slate-400">
+                <p>© 2025 Vision. Todos los derechos reservados.</p>
+            </div>
+        </footer>
+    </div>
+
+
+</body>
+
+</html>
+
+<script src="auth.js"></script>
