@@ -1,3 +1,13 @@
+<?php
+
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.html');
+    exit;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,7 +43,7 @@
 <body class="bg-background-light dark:bg-background-dark font-display text-[#333] dark:text-[#ccc]">
   <!--
     Protección de la página: si el usuario no está autenticado se redirige a login.html
-    con el parámetro ?next=Reserva.html para volver después de iniciar sesión.
+    con el parámetro ?next=View_Reserva.php para volver después de iniciar sesión.
     Este check depende de window.Auth (definido en auth.js). En producción el
     servidor debería hacer la protección, aquí es solo una medida en el cliente.
   -->
@@ -42,7 +52,7 @@
       try{
         if(window.Auth && typeof window.Auth.isLoggedIn === 'function'){
           if(!window.Auth.isLoggedIn()){
-            var next = 'Reserva.html';
+            var next = 'View_Reserva.php';
             location.href = 'login.html?next=' + encodeURIComponent(next);
           }
         }
@@ -324,7 +334,7 @@
           type: therapyType,
           createdAt: new Date().toISOString()
         });
-        // Guardamos el arreglo actualizado. Perfil.html lo leerá y mostrará las citas.
+        
         localStorage.setItem(key, JSON.stringify(arr));
       }catch(e){ console.error('save appointment', e); }
 
@@ -351,7 +361,7 @@
   console.error("Error al obtener usuario:", err);
 }
       // redirect to profile overview so the user sees their appointment
-      setTimeout(()=>{ location.href = 'Perfil.html'; }, 700);
+      setTimeout(()=>{ location.href = 'Perfil.php'; }, 700);
     });
 
     // initialize

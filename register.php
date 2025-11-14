@@ -23,6 +23,7 @@ $age = isset($input['age']) ? intval($input['age']) : null;
 $phone = trim($input['phone'] ?? '');
 $email = trim(strtolower($input['email'] ?? ''));
 $password = $input['password'] ?? '';
+$rol = 1;
 
 // Validaciones básicas (server-side)
 if ($first === '' || $last === '') {
@@ -80,13 +81,13 @@ $stmt->close();
 
 $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-$insert = $mysqli->prepare("INSERT INTO users (first_name, last_name, age, phone, email, password_hash) VALUES (?, ?, ?, ?, ?, ?)");
+$insert = $mysqli->prepare("INSERT INTO users (first_name, last_name, age, phone, email, password_hash, ID_ROLE) VALUES (?, ?, ?, ?, ?, ?,?)");
 if (!$insert) {
     http_response_code(500);
     echo json_encode(['success' => false, 'message' => 'Error al preparar la inserción.']);
     exit;
 }
-$insert->bind_param('ssisss', $first, $last, $age, $phone, $email, $password_hash);
+$insert->bind_param('ssisssi', $first, $last, $age, $phone, $email, $password_hash, $rol);
 if ($insert->execute()) {
     http_response_code(201);
     echo json_encode(['success' => true, 'message' => 'Cuenta creada correctamente.']);
