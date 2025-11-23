@@ -1,21 +1,41 @@
 <?php
-
-/**
- * Inicia la sesion y valida si existe un usuario
- * Si no existe, lo redirige al login con parametro redirect.
- */
 session_start();
 
-if (!isset($_SESSION['user_id'])) {
-    header('Location: login.html?redirect=' . urldecode(basename($_SERVER['PHP_SELF'])));
+
+if (empty($_SESSION['user_id'])) {
+    header('Location: login.html?redirect=' . urlencode(basename($_SERVER['PHP_SELF'])));
     exit;
 }
 
-$usuario_para_js = [
-    "id" => $_SESSION['user_id'] ?? 0,
-    "email" => $_SESSION['user_email'] ?? '',
-    "role" => $_SESSION['user_role'] ?? 0
+require_once 'db.php';
+
+$paciente = null; 
+
+$query = "SELECT Nombre_Paciente, Apellido_Paciente FROM pacientes WHERE ID_Usuario = ?";
+
+if ($stmt = $mysqli->prepare($query)) {
+    $stmt->bind_param("i", $_SESSION['user_id']); 
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($row = $result->fetch_assoc()) {
+        $paciente = $row;
+    }
+    
+    $stmt->close();
+}
+
+
+$nombreMostrar = $paciente['Nombre_Paciente'] ?? 'Usuario';
+$apellidoMostrar = $paciente['Apellido_Paciente'] ?? '';
+$nombreCompleto = trim($nombreMostrar . ' ' . $apellidoMostrar);
+
+$jsData = [
+    'nombre' => $nombreMostrar,
+    'apellido' => $apellidoMostrar,
+    'email' => $_SESSION['user_email'] ?? ''
 ];
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -53,30 +73,25 @@ $usuario_para_js = [
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
-    <script>
-        
-        const usuarioSesion = <?php echo json_encode($usuario_para_js); ?>;
+      <script>
+        // Pasamos los datos limpios de PHP a JS
+        const usuarioSesion = <?php echo json_encode($jsData); ?>;
 
         window.Auth = {
             getUser: function() {
-                const nombreCompleto = usuarioSesion.nombre || '';
-                const partesNombre = nombreCompleto.split(' ');
-                
                 return {
-                    firstName: partesNombre[0] || 'Usuario',
-                    lastName: partesNombre.slice(1).join(' ') || '',
+                    firstName: usuarioSesion.nombre,
+                    lastName: usuarioSesion.apellido,
                     email: usuarioSesion.email
                 };
             },
             
-            // Función para cerrar sesión
             logout: function(options) {
                 window.location.href = 'logout.php';
-            },
-
-            
+            }
         };
     </script>
+
 </head>
 
 <body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
@@ -118,7 +133,8 @@ $usuario_para_js = [
                 <div id="perfilAvatar" class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAYXKK9-gR1zZ7av7idsVNcs5cGFmHKUC73uZ9p1SSe4_6M80Tvct9QFixH_FeguMfeWMPFeL3wXUf2qrqVh37say64QsR0uiqBJHIPz0nUJ6XurcZkZbhoTrb5FCQuCQr4xJOXHYpswluSY8n6ClWqZya8qWy4JcPhsj93zV12ovYKmymqKNBd5iBjyg_PSENrLm7DtNbf5S4Y5830tu7xQJZKo1xJAkPAkR4tkCAG-C8cVKENR1fyUVS--ZDQFeUCKX3WKcr1zWs");'></div>
                 <div class="flex flex-col">
                     <h1 id="perfilName" class="text-gray-900 dark:text-white font-bold text-lg">
-                        falta la funcion
+                     <?php echo htmlspecialchars($nombreCompleto); ?>
+
                     </h1>
                     <p id="perfilRole" class="text-gray-500 dark:text-gray-400 text-sm">Paciente</p>
                     <p id="perfilEmail" class="text-sm text-gray-500 dark:text-gray-400">
@@ -151,7 +167,8 @@ $usuario_para_js = [
             <div class="max-w-4xl mx-auto">
                 
                 <div id="dashboardPanel">
-                    <h1 id="welcomeTitle" class="text-4xl font-bold text-gray-900 dark:text-white mb-8">¡Bienvenido, <?php echo htmlspecialchars(explode(' ', $_SESSION['user_nombre'])[0]); ?>!</h1>
+                    <h1 id="welcomeTitle" class="text-4xl font-bold text-gray-900 dark:text-white mb-8">¡Bienvenido,  <?php echo htmlspecialchars($nombreCompleto); ?>
+!</h1>
                     <section>
                         <div class="flex justify-between items-center mb-6">
                             <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100">Tus citas</h2>
