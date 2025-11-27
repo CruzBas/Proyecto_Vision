@@ -174,7 +174,7 @@ $jsData = [
                             <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100">Tus citas</h2>
                             <a href="View_Reserva.php">
                             <button id="bookNewBtn" class="bg-primary text-white font-semibold py-2 px-6 rounded-lg hover:bg-primary/90 transition-colors">
-                                Reservar nueva
+                                Reservar Cita
                             </button>
                             </a>
                         </div>

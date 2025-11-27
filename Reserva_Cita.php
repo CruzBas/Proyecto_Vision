@@ -42,6 +42,17 @@ if (!$paciente) {
 $idPaciente = $paciente['ID_Paciente'];
 $fechaCompleta = $fecha . ' ' . $hora;
 
+// Verificar si ya existe una cita con el mismo psicólogo en la misma fecha y hora
+$check = $mysqli->prepare("SELECT 1 FROM citas WHERE ID_Psicologo = ? AND DATE(Fecha_Cita) = ? AND DATE_FORMAT(Fecha_Cita, '%H:%i') = ? AND Estado <> 'cancelada' LIMIT 1");
+$check->bind_param('iss', $idPsicologo, $fecha, $hora);
+$check->execute();
+$check->store_result();
+if ($check->num_rows > 0) {
+    echo json_encode(['success' => false, 'message' => 'El horario ya no está disponible para este psicólogo']);
+    exit;
+}
+$check->close();
+
 
 $stmt = $mysqli->prepare("INSERT INTO citas (ID_Paciente, ID_Psicologo, Fecha_Cita, Estado) VALUES (?, ?, ?, 'pendiente')");
 $stmt->bind_param('iis', $idPaciente, $idPsicologo, $fechaCompleta);

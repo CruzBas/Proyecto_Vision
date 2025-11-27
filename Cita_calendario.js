@@ -35,6 +35,7 @@
     let selectedDate = null;
     let selectedTime = null;
     let selectedDayBtn = null;
+    let horasOcupadas = [];
 
    
     therapyTypeSelect.addEventListener('change', async function () {
@@ -77,6 +78,7 @@
 
     comboPsicologo.addEventListener('change', function () {
         inputPsicologo.value = this.value;
+        cargarHorasOcupadas();
     });
 
     
@@ -154,7 +156,7 @@
         inputFecha.value = `${year}-${month}-${day}`;
         selectedDateLabel.textContent = `Selecciona un horario para el ${dayName} ${day}/${month}/${year}`;
 
-        renderTimeSlots();
+        cargarHorasOcupadas();
     }
 
     function renderTimeSlots() {
@@ -178,6 +180,12 @@
             const span = document.createElement('span');
             span.textContent = time;
 
+            const isTaken = horasOcupadas.includes(time);
+            if (isTaken) {
+                input.disabled = true;
+                label.classList.add('opacity-50', 'cursor-not-allowed');
+            }
+
             if (selectedTime === time) {
                 input.checked = true;
                 label.classList.add('border-primary', 'bg-primary/10', 'shadow-md');
@@ -196,6 +204,26 @@
             label.appendChild(span);
             timeSlots.appendChild(label);
         });
+    }
+
+    async function cargarHorasOcupadas() {
+        horasOcupadas = [];
+
+        if (!inputPsicologo.value || !inputFecha.value) {
+            renderTimeSlots();
+            return;
+        }
+
+        try {
+            const res = await fetch(`Horas_Ocupadas.php?id_psicologo=${encodeURIComponent(inputPsicologo.value)}&fecha=${encodeURIComponent(inputFecha.value)}`);
+            const data = await res.json();
+            if (data.success && Array.isArray(data.horas)) {
+                horasOcupadas = data.horas;
+            }
+        } catch (err) {
+            console.error('Error cargando horas ocupadas', err);
+        }
+        renderTimeSlots();
     }
 
     renderMonth();

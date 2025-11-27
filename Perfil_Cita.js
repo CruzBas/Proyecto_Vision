@@ -48,6 +48,7 @@
         let statusColor = 'bg-gray-100 text-gray-800';
         if (app.Estado === 'Pendiente') statusColor = 'bg-yellow-100 text-yellow-800';
         if (app.Estado === 'Completada') statusColor = 'bg-green-100 text-green-800';
+        if(app.Estado === 'Cancelada') statusColor ='bg-red-100 text-red-800';
         
         const estadoBadge = app.Estado ? `<span class="text-[10px] uppercase tracking-wider font-bold ${statusColor} px-2 py-0.5 rounded ml-auto">${app.Estado}</span>` : '';
 
