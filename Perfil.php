@@ -74,7 +74,6 @@ $jsData = [
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
       <script>
-        // Pasamos los datos limpios de PHP a JS
         const usuarioSesion = <?php echo json_encode($jsData); ?>;
 
         window.Auth = {
@@ -174,7 +173,7 @@ $jsData = [
                             <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100">Tus citas</h2>
                             <a href="View_Reserva.php">
                             <button id="bookNewBtn" class="bg-primary text-white font-semibold py-2 px-6 rounded-lg hover:bg-primary/90 transition-colors">
-                                Reservar nueva
+                                Reservar Cita
                             </button>
                             </a>
                         </div>
@@ -263,21 +262,67 @@ $jsData = [
                     </div>
                     <div class="mt-8 border-t pt-4 flex justify-between items-center">
                         <div class="text-sm text-gray-500">¿Necesitas ayuda? <a href="mensaje.html" class="text-primary">Contáctanos</a></div>
-                        <button id="settingsLogout" class="bg-red-600 text-white px-4 py-2 rounded">Log Out</button>
+                        <button id="btnLogout" class="bg-red-600 text-white px-4 py-2 rounded">Log Out</button>
                     </div>
                 </div>
             </div>
         </main>
     </div>
 
-    <div id="confirmOverlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"></div>
-    <div id="confirmModal" class="fixed inset-0 flex items-center justify-center pointer-events-none opacity-0 transition-all duration-300">
+   
+    <div id="confirmarOverlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"></div>
+    <div id="confirmaModal" class="fixed inset-0 flex items-center justify-center pointer-events-none opacity-0 transition-all duration-300">
         <div class="bg-white dark:bg-gray-800 rounded-lg p-6 w-[90%] max-w-md shadow-xl border border-gray-200 dark:border-gray-700 transform scale-95">
             <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">Confirmar cierre de sesión</h3>
             <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">¿Estás seguro que deseas cerrar sesión? Serás redirigido a la página principal.</p>
             <div class="flex justify-end gap-3">
-                <button id="cancelLogout" class="px-4 py-2 rounded-md bg-gray-100 dark:bg-gray-700">Cancelar</button>
-                <button id="confirmLogout" class="px-4 py-2 rounded-md bg-red-600 text-white">Cerrar sesión</button>
+                <button id="cancelarLogout" class="px-4 py-2 rounded-md bg-gray-100 dark:bg-gray-700">Cancelar</button>
+                <button id="confirmarLogout" class="px-4 py-2 rounded-md bg-red-600 text-white">Cerrar sesión</button>
+            </div>
+        </div>
+    </div>
+
+ 
+    <button id="appOpcionesOverlay" onclick="window.Cerrar_CitaModal()"
+         class="fixed inset-0 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 z-40" aria-label="Close appointment modal">
+    </button>
+
+   
+    <div id="apptOpcionesModal" 
+         class="fixed inset-0 flex items-center justify-center pointer-events-none z-50 px-4">
+        
+        <div id="apptModalCard" class="bg-white dark:bg-gray-800 rounded-2xl p-6 w-full max-w-sm shadow-2xl border border-gray-200 dark:border-gray-700 transform scale-95 opacity-0 transition-all duration-300">
+            
+            <div class="text-center mb-6">
+                <div class="mx-auto w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mb-3">
+                    <span class="material-symbols-outlined text-gray-600 dark:text-gray-300">settings</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">Opciones de Cita</h3>
+                <p id="modalCita_Info" class="text-sm text-gray-500 dark:text-gray-400 mt-1">Selecciona una acción</p>
+            </div>
+
+            <div class="space-y-3">
+                <!-- Botón Editar (Redirige) -->
+                <button onclick="window.handleEditAppointment()" class="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors">
+                    <span class="material-symbols-outlined text-sm">edit</span>
+                    Editar
+                </button>
+
+                <!-- Botón Eliminar (Acción) -->
+                <button onclick="window.Eliminar_cita()" class="w-full flex items-center justify-center gap-2 bg-white dark:bg-gray-800 border border-red-200 dark:border-red-900/50 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 font-medium py-2.5 px-4 rounded-lg transition-colors">
+                    <span class="material-symbols-outlined text-sm">delete</span>
+                    Cancelar cita
+                </button>
+
+                <div class="relative py-2">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-200 dark:border-gray-700"></div>
+                    </div>
+                </div>
+
+                <button onclick="window.Cerrar_CitaModal()" class="w-full text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-sm font-medium py-2">
+                    Volver atrás
+                </button>
             </div>
         </div>
     </div>

@@ -16,11 +16,11 @@ $userId = $_SESSION['user_id'];
 
 
 $query = "SELECT 
-            c.ID_Cita,
-            DATE(c.Fecha_Cita) as date, 
-            DATE_FORMAT(c.Fecha_Cita, '%H:%i') as time, 
-            e.Nombre_Especialidad as type,
-            CONCAT(psi.Nombre_Psicologo, ' ', psi.Apellido_Psicologo) as nombre_completo_psicologo, 
+            c.ID_Cita AS id,
+            DATE(c.Fecha_Cita) AS date, 
+            DATE_FORMAT(c.Fecha_Cita, '%H:%i') AS time, 
+            e.Nombre_Especialidad AS Nombre_Especialidad,
+            CONCAT(psi.Nombre_Psicologo, ' ', psi.Apellido_Psicologo) AS nombre_completo_psicologo, 
             c.Estado 
          FROM citas c
           INNER JOIN pacientes p ON c.ID_Paciente = p.ID_Paciente
