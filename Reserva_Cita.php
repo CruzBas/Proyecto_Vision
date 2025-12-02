@@ -1,11 +1,12 @@
 <?php
-// guardar_cita.php
+// Reserva_Cita.php
 header('Content-Type: application/json; charset=utf-8');
 session_start();
 require_once 'db.php';
 
 if (!isset($_SESSION['user_id'])) {
-    echo json_encode(['success' => false, 'message' => 'No autorizado']); exit;
+    echo json_encode(['success' => false, 'message' => 'No autorizado']); 
+    exit;
 }
 
 $rawInput = file_get_contents('php://input');
@@ -21,13 +22,15 @@ if (!is_array($input) || empty($input)) {
 $userId = $_SESSION['user_id'];
 $fecha = isset($input['fecha']) ? trim($input['fecha']) : '';
 $hora = isset($input['hora']) ? trim($input['hora']) : '';
-$idPsicologo = isset($input['id_psicologo']) ? intval($input['id_psicologo']) : 0; // NUEVO CAMPO
+$idPsicologo = isset($input['id_psicologo']) ? intval($input['id_psicologo']) : 0;
+$motivo = isset($input['motivo']) ? trim($input['motivo']) : null; // NUEVO CAMPO
+$duracion = isset($input['duracion']) ? intval($input['duracion']) : 60; // NUEVO CAMPO con default
 
 // Validaciones
 if (!$fecha || !$hora || !$idPsicologo) {
-    echo json_encode(['success' => false, 'message' => 'Datos incompletos']); exit;
+    echo json_encode(['success' => false, 'message' => 'Datos incompletos']); 
+    exit;
 }
-
 
 $q = $mysqli->prepare("SELECT ID_Paciente FROM pacientes WHERE ID_Usuario = ?");
 $q->bind_param('i', $userId);
@@ -36,29 +39,21 @@ $res = $q->get_result();
 $paciente = $res->fetch_assoc();
 
 if (!$paciente) {
-    echo json_encode(['success' => false, 'message' => 'Perfil de paciente no encontrado']); exit;
+    echo json_encode(['success' => false, 'message' => 'Perfil de paciente no encontrado']); 
+    exit;
 }
 
 $idPaciente = $paciente['ID_Paciente'];
 $fechaCompleta = $fecha . ' ' . $hora;
 
-// Verificar si ya existe una cita con el mismo psicólogo en la misma fecha y hora
-$check = $mysqli->prepare("SELECT 1 FROM citas WHERE ID_Psicologo = ? AND DATE(Fecha_Cita) = ? AND DATE_FORMAT(Fecha_Cita, '%H:%i') = ? AND Estado <> 'cancelada' LIMIT 1");
-$check->bind_param('iss', $idPsicologo, $fecha, $hora);
-$check->execute();
-$check->store_result();
-if ($check->num_rows > 0) {
-    echo json_encode(['success' => false, 'message' => 'El horario ya no está disponible para este psicólogo']);
-    exit;
-}
-$check->close();
-
-
-$stmt = $mysqli->prepare("INSERT INTO citas (ID_Paciente, ID_Psicologo, Fecha_Cita, Estado) VALUES (?, ?, ?, 'pendiente')");
-$stmt->bind_param('iis', $idPaciente, $idPsicologo, $fechaCompleta);
+// Inserción con todos los campos relevantes
+$stmt = $mysqli->prepare("INSERT INTO citas 
+    (ID_Paciente, ID_Psicologo, Fecha_Cita, Motivo, Estado, Duracion) 
+    VALUES (?, ?, ?, ?, 'Pendiente', ?)");
+$stmt->bind_param('iissi', $idPaciente, $idPsicologo, $fechaCompleta, $motivo, $duracion);
 
 if ($stmt->execute()) {
-    echo json_encode(['success' => true]);
+    echo json_encode(['success' => true, 'id_cita' => $stmt->insert_id]);
 } else {
     echo json_encode(['success' => false, 'message' => 'Error BD: ' . $mysqli->error]);
 }

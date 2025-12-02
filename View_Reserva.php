@@ -113,6 +113,13 @@ if ($result = $mysqli->query($query)) {
 
               <div id="timeSlots" class="grid grid-cols-2 gap-4 sm:grid-cols-3"></div>
 
+               <!-- Motivo (opcional) -->
+              <div class="space-y-2">
+                <label for="inputMotivo" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Motivo (opcional)</label>
+                <textarea id="inputMotivo" name="motivo" rows="3" placeholder="Breve descripción del motivo"
+                          class="mt-1 block w-full rounded-md border border-gray-200 bg-white py-2 px-3 text-sm shadow-sm focus:border-primary focus:ring-primary dark:bg-background-dark dark:border-slate-700 dark:text-gray-200"></textarea>
+              </div>
+
               <div id="reservaAlert" class="hidden rounded p-3 text-sm mb-4"></div>
 
               <form id="formReserva" method="post" action="Reserva_Cita.php">

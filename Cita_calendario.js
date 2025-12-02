@@ -10,20 +10,21 @@
     const formReserva = document.getElementById('formReserva');
     const confirmBtn = document.getElementById('confirmBtn');
 
-    
     const therapyTypeSelect = document.getElementById('therapyType');
     const divPsicologo = document.getElementById('divPsicologo');
     const comboPsicologo = document.getElementById('comboPsicologo');
 
-    
     const inputFecha = document.getElementById('inputFecha');
     const inputHora = document.getElementById('inputHora');
     const inputPsicologo = document.getElementById('inputPsicologo');
     const inputTipoServicio = document.getElementById('inputTipoServicio');
 
+    // Nuevos Campos
+    const inputMotivo = document.getElementById('inputMotivo');
+    const inputDuracion = document.getElementById('inputDuracion');
+
     const timeOptions = ['09:00', '10:00', '11:00', '12:00','13:00','14:00', '15:00', '16:00','17:00','18:00'];
 
-    
     const baseDayClass = 'h-12 rounded-xl border border-transparent bg-white dark:bg-slate-900 shadow-sm text-sm font-semibold text-gray-700 dark:text-gray-200 transition transform hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary/60';
     const selectedDayClasses = ['bg-primary', 'text-white', 'border-primary', 'shadow-lg'];
     const todayRingClasses = ['ring-2', 'ring-primary/50'];
@@ -35,9 +36,7 @@
     let selectedDate = null;
     let selectedTime = null;
     let selectedDayBtn = null;
-    let horasOcupadas = [];
 
-   
     therapyTypeSelect.addEventListener('change', async function () {
         const idEspecialidad = this.value;
         inputTipoServicio.value = idEspecialidad;
@@ -78,10 +77,8 @@
 
     comboPsicologo.addEventListener('change', function () {
         inputPsicologo.value = this.value;
-        cargarHorasOcupadas();
     });
 
-    
     function sameDay(a, b) {
         return a && b && a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
     }
@@ -156,7 +153,7 @@
         inputFecha.value = `${year}-${month}-${day}`;
         selectedDateLabel.textContent = `Selecciona un horario para el ${dayName} ${day}/${month}/${year}`;
 
-        cargarHorasOcupadas();
+        renderTimeSlots();
     }
 
     function renderTimeSlots() {
@@ -180,12 +177,6 @@
             const span = document.createElement('span');
             span.textContent = time;
 
-            const isTaken = horasOcupadas.includes(time);
-            if (isTaken) {
-                input.disabled = true;
-                label.classList.add('opacity-50', 'cursor-not-allowed');
-            }
-
             if (selectedTime === time) {
                 input.checked = true;
                 label.classList.add('border-primary', 'bg-primary/10', 'shadow-md');
@@ -206,26 +197,6 @@
         });
     }
 
-    async function cargarHorasOcupadas() {
-        horasOcupadas = [];
-
-        if (!inputPsicologo.value || !inputFecha.value) {
-            renderTimeSlots();
-            return;
-        }
-
-        try {
-            const res = await fetch(`Horas_Ocupadas.php?id_psicologo=${encodeURIComponent(inputPsicologo.value)}&fecha=${encodeURIComponent(inputFecha.value)}`);
-            const data = await res.json();
-            if (data.success && Array.isArray(data.horas)) {
-                horasOcupadas = data.horas;
-            }
-        } catch (err) {
-            console.error('Error cargando horas ocupadas', err);
-        }
-        renderTimeSlots();
-    }
-
     renderMonth();
     renderTimeSlots();
 
@@ -235,7 +206,7 @@
 
         if (!inputFecha.value) { alert('Por favor, selecciona una fecha.'); return; }
         if (!inputHora.value) { alert('Por favor, selecciona una hora.'); return; }
-        if (!inputPsicologo.value) { alert('Por favor, selecciona un psicologo.'); return; }
+        if (!inputPsicologo.value) { alert('Por seguro, selecciona un psicólogo.'); return; }
 
         confirmBtn.disabled = true;
         const originalText = confirmBtn.textContent;
@@ -249,14 +220,17 @@
                     fecha: inputFecha.value,
                     hora: inputHora.value,
                     id_psicologo: inputPsicologo.value,
-                    tipo_servicio: inputTipoServicio.value
+                    tipo_servicio: inputTipoServicio.value,
+                    motivo: inputMotivo ? (inputMotivo.value || null) : null,
+                    duracion: inputDuracion && inputDuracion.value
+                        ? parseInt(inputDuracion.value, 10) : 60
                 })
             });
 
             const data = await resp.json();
 
             if (data.success) {
-                alert('Cita reservada con exito');
+                alert('Cita reservada con éxito');
                 window.location.href = 'Perfil.php';
             } else {
                 alert(data.message || 'Error al reservar');
@@ -275,6 +249,7 @@
         viewDate.setMonth(viewDate.getMonth() - 1);
         renderMonth();
     });
+
     nextBtn.addEventListener('click', () => {
         viewDate.setMonth(viewDate.getMonth() + 1);
         renderMonth();
