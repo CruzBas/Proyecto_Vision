@@ -42,7 +42,7 @@
         submitBtn.textContent = 'Creando...';
 
         try {
-            const resp = await fetch('Registrar_Usuario.php', {
+            const resp = await fetch('register.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password })

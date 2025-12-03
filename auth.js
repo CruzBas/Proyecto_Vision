@@ -32,6 +32,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if(data.usuario.Rol===2){
           window.location.href = "Doctor.php";
         }
+        if(data.usuario.Rol===3){
+          window.location.href = "panelAdmin_View.php";
+        }
       
       } else {
         // ERROR: Credenciales incorrectas

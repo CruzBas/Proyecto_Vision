@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+
 require_once 'db.php';
 
 if (!isset($_SESSION['user_id'])) {
@@ -14,8 +15,17 @@ $query = "SELECT ID_Especialidad, Nombre_Especialidad FROM especialidades";
 if ($result = $mysqli->query($query)) {
     while ($row = $result->fetch_assoc()) {
         $especialidades[] = $row;
-    }
 }
+}
+
+if (isset($_REQUEST['id'])) {
+  $citaId = $_REQUEST['id'];
+} else {
+  
+  header('Location: Index.html');
+  exit;
+}
+$userId = $_SESSION['user_id'];
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -77,7 +87,7 @@ if ($result = $mysqli->query($query)) {
     <main class="flex-1">
       <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div class="mb-8 text-center">
-          <h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl">Programa tu cita</h1>
+          <h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl">Reprograma tu cita</h1>
         </div>
 
         <div class="rounded-xl border border-primary/20 bg-background-light dark:bg-background-dark p-4 sm:p-6 lg:p-8">
@@ -113,31 +123,25 @@ if ($result = $mysqli->query($query)) {
 
               <div id="timeSlots" class="grid grid-cols-2 gap-4 sm:grid-cols-3"></div>
 
-               <!-- Motivo (opcional) -->
-              <div class="space-y-2">
-                <label for="inputMotivo" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Motivo (opcional)</label>
-                <textarea id="inputMotivo" name="motivo" rows="3" placeholder="Breve descripción del motivo"
-                          class="mt-1 block w-full rounded-md border border-gray-200 bg-white py-2 px-3 text-sm shadow-sm focus:border-primary focus:ring-primary dark:bg-background-dark dark:border-slate-700 dark:text-gray-200"></textarea>
-              </div>
-
               <div id="reservaAlert" class="hidden rounded p-3 text-sm mb-4"></div>
 
-              <form id="formReserva" method="post" action="Reserva_Cita.php">
+              <form id="formReservaEditar" method="post" action="Editar_Cita.php">
+                <input type="hidden" name="id_cita" id="id_cita" value="<?php echo htmlspecialchars($citaId); ?>">
                   <input type="hidden" name="fecha" id="inputFecha">
                   <input type="hidden" name="hora" id="inputHora">
                   <input type="hidden" name="tipo_servicio" id="inputTipoServicio">
                   <input type="hidden" name="id_psicologo" id="inputPsicologo">
                   
                   <button type="submit" id="confirmBtn" class="w-full rounded-lg bg-primary py-3 px-4 text-base font-bold text-white shadow-md transition-transform hover:scale-[1.02]">
-                    Confirmar Cita
+                    Confirmar Nueva Cita
                   </button>
               </form>
             </div>
           </div>
         </div>
       </div>
-    </main>
-  </div>
-  <script src="Cita_calendario.js"></script>
+<script src="Editar_cita_Calendario.js"></script>
 </body>
 </html>
+<?php
+?>

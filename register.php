@@ -17,38 +17,15 @@ if (!is_array($input)) {
     exit;
 }
 
-$first = trim($input['first'] ?? '');
-$last = trim($input['last'] ?? '');
-$age = isset($input['age']) ? intval($input['age']) : null;
-$phone = trim($input['phone'] ?? '');
 $email = trim(strtolower($input['email'] ?? ''));
 $password = $input['password'] ?? '';
 $rol = 1;
 
 // Validaciones básicas (server-side)
-if ($first === '' || $last === '') {
-    http_response_code(400);
-    echo json_encode(['success' => false, 'message' => 'Debe ingresar nombre y apellido.']);
-    exit;
-}
-if ($age === null || $age <= 0) {
-    http_response_code(400);
-    echo json_encode(['success' => false, 'message' => 'Ingrese una edad válida.']);
-    exit;
-}
-if ($age < 18) {
-    http_response_code(400);
-    echo json_encode(['success' => false, 'message' => 'Debes ser mayor de 18 años para crear una cuenta.']);
-    exit;
-}
+
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     http_response_code(400);
     echo json_encode(['success' => false, 'message' => 'Ingrese un correo electrónico válido.']);
-    exit;
-}
-if (!preg_match('/^[0-9+\-()\s]{6,}$/', $phone)) {
-    http_response_code(400);
-    echo json_encode(['success' => false, 'message' => 'Ingrese un teléfono válido.']);
     exit;
 }
 if (strlen($password) < 6) {
@@ -82,14 +59,13 @@ $stmt->close();
 $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
 // insert Tabla users
-
-$insert = $mysqli->prepare("INSERT INTO users (first_name, last_name, age, phone, email, password_hash, ID_ROLE) VALUES (?, ?, ?, ?, ?, ?,?)");
+$insert = $mysqli->prepare("INSERT INTO users (email, password_hash, ID_ROLE) VALUES (?, ?, ?)");
 if (!$insert) {
     http_response_code(500);
     echo json_encode(['success' => false, 'message' => 'Error al preparar la inserción.']);
     exit;
 }
-$insert->bind_param('ssisssi', $first, $last, $age, $phone, $email, $password_hash, $rol);
+$insert->bind_param('ssi', $email, $password_hash, $rol);
 if ($insert->execute()) {
     http_response_code(201);
     echo json_encode(['success' => true, 'message' => 'Cuenta creada correctamente.']);

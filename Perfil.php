@@ -1,21 +1,41 @@
 <?php
-
-/**
- * Inicia la sesion y valida si existe un usuario
- * Si no existe, lo redirige al login con parametro redirect.
- */
 session_start();
 
-if (!isset($_SESSION['user_id'])) {
-    header('Location: login.html?redirect=' . urldecode(basename($_SERVER['PHP_SELF'])));
+
+if (empty($_SESSION['user_id'])) {
+    header('Location: login.html?redirect=' . urlencode(basename($_SERVER['PHP_SELF'])));
     exit;
 }
 
-$usuario_para_js = [
-    "id" => $_SESSION['user_id'] ?? 0,
-    "email" => $_SESSION['user_email'] ?? '',
-    "role" => $_SESSION['user_role'] ?? 0
+require_once 'db.php';
+
+$paciente = null; 
+
+$query = "SELECT Nombre_Paciente, Apellido_Paciente FROM pacientes WHERE ID_Usuario = ?";
+
+if ($stmt = $mysqli->prepare($query)) {
+    $stmt->bind_param("i", $_SESSION['user_id']); 
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($row = $result->fetch_assoc()) {
+        $paciente = $row;
+    }
+    
+    $stmt->close();
+}
+
+
+$nombreMostrar = $paciente['Nombre_Paciente'] ?? 'Usuario';
+$apellidoMostrar = $paciente['Apellido_Paciente'] ?? '';
+$nombreCompleto = trim($nombreMostrar . ' ' . $apellidoMostrar);
+
+$jsData = [
+    'nombre' => $nombreMostrar,
+    'apellido' => $apellidoMostrar,
+    'email' => $_SESSION['user_email'] ?? ''
 ];
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -53,30 +73,24 @@ $usuario_para_js = [
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
-    <script>
-        
-        const usuarioSesion = <?php echo json_encode($usuario_para_js); ?>;
+      <script>
+        const usuarioSesion = <?php echo json_encode($jsData); ?>;
 
         window.Auth = {
             getUser: function() {
-                const nombreCompleto = usuarioSesion.nombre || '';
-                const partesNombre = nombreCompleto.split(' ');
-                
                 return {
-                    firstName: partesNombre[0] || 'Usuario',
-                    lastName: partesNombre.slice(1).join(' ') || '',
+                    firstName: usuarioSesion.nombre,
+                    lastName: usuarioSesion.apellido,
                     email: usuarioSesion.email
                 };
             },
             
-            // Función para cerrar sesión
             logout: function(options) {
                 window.location.href = 'logout.php';
-            },
-
-            
+            }
         };
     </script>
+
 </head>
 
 <body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
@@ -118,7 +132,8 @@ $usuario_para_js = [
                 <div id="perfilAvatar" class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAYXKK9-gR1zZ7av7idsVNcs5cGFmHKUC73uZ9p1SSe4_6M80Tvct9QFixH_FeguMfeWMPFeL3wXUf2qrqVh37say64QsR0uiqBJHIPz0nUJ6XurcZkZbhoTrb5FCQuCQr4xJOXHYpswluSY8n6ClWqZya8qWy4JcPhsj93zV12ovYKmymqKNBd5iBjyg_PSENrLm7DtNbf5S4Y5830tu7xQJZKo1xJAkPAkR4tkCAG-C8cVKENR1fyUVS--ZDQFeUCKX3WKcr1zWs");'></div>
                 <div class="flex flex-col">
                     <h1 id="perfilName" class="text-gray-900 dark:text-white font-bold text-lg">
-                        falta la funcion
+                     <?php echo htmlspecialchars($nombreCompleto); ?>
+
                     </h1>
                     <p id="perfilRole" class="text-gray-500 dark:text-gray-400 text-sm">Paciente</p>
                     <p id="perfilEmail" class="text-sm text-gray-500 dark:text-gray-400">
@@ -151,13 +166,16 @@ $usuario_para_js = [
             <div class="max-w-4xl mx-auto">
                 
                 <div id="dashboardPanel">
-                    <h1 id="welcomeTitle" class="text-4xl font-bold text-gray-900 dark:text-white mb-8">¡Bienvenido, <?php echo htmlspecialchars(explode(' ', $_SESSION['user_nombre'])[0]); ?>!</h1>
+                    <h1 id="welcomeTitle" class="text-4xl font-bold text-gray-900 dark:text-white mb-8">¡Bienvenido,  <?php echo htmlspecialchars($nombreCompleto); ?>
+!</h1>
                     <section>
                         <div class="flex justify-between items-center mb-6">
                             <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100">Tus citas</h2>
+                            <a href="View_Reserva.php">
                             <button id="bookNewBtn" class="bg-primary text-white font-semibold py-2 px-6 rounded-lg hover:bg-primary/90 transition-colors">
-                                Reservar nueva
+                                Reservar Cita
                             </button>
+                            </a>
                         </div>
                         <div id="appointmentsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
                     </section>
@@ -244,253 +262,71 @@ $usuario_para_js = [
                     </div>
                     <div class="mt-8 border-t pt-4 flex justify-between items-center">
                         <div class="text-sm text-gray-500">¿Necesitas ayuda? <a href="mensaje.html" class="text-primary">Contáctanos</a></div>
-                        <button id="settingsLogout" class="bg-red-600 text-white px-4 py-2 rounded">Log Out</button>
+                        <button id="btnLogout" class="bg-red-600 text-white px-4 py-2 rounded">Log Out</button>
                     </div>
                 </div>
             </div>
         </main>
     </div>
 
-    <div id="confirmOverlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"></div>
-    <div id="confirmModal" class="fixed inset-0 flex items-center justify-center pointer-events-none opacity-0 transition-all duration-300">
+   
+    <div id="confirmarOverlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"></div>
+    <div id="confirmaModal" class="fixed inset-0 flex items-center justify-center pointer-events-none opacity-0 transition-all duration-300">
         <div class="bg-white dark:bg-gray-800 rounded-lg p-6 w-[90%] max-w-md shadow-xl border border-gray-200 dark:border-gray-700 transform scale-95">
             <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">Confirmar cierre de sesión</h3>
             <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">¿Estás seguro que deseas cerrar sesión? Serás redirigido a la página principal.</p>
             <div class="flex justify-end gap-3">
-                <button id="cancelLogout" class="px-4 py-2 rounded-md bg-gray-100 dark:bg-gray-700">Cancelar</button>
-                <button id="confirmLogout" class="px-4 py-2 rounded-md bg-red-600 text-white">Cerrar sesión</button>
+                <button id="cancelarLogout" class="px-4 py-2 rounded-md bg-gray-100 dark:bg-gray-700">Cancelar</button>
+                <button id="confirmarLogout" class="px-4 py-2 rounded-md bg-red-600 text-white">Cerrar sesión</button>
             </div>
         </div>
     </div>
 
-    <script>
-        (function() {
-            // Cargar datos del usuario desde window.Auth (definido arriba con PHP)
-            const user = (window.Auth && window.Auth.getUser && window.Auth.getUser()) || null;
-            if (user) {
-                // Rellenar los campos visibles del perfil si el PHP no lo hizo directamente
-                const pName = document.getElementById('perfilName');
-                const pEmail = document.getElementById('perfilEmail');
-                if(pName && !pName.innerText.trim()) pName.textContent = user.firstName + ' ' + user.lastName;
-                if(pEmail && !pEmail.innerText.trim()) pEmail.textContent = user.email || '';
-            }
+ 
+    <button id="appOpcionesOverlay" onclick="window.Cerrar_CitaModal()"
+         class="fixed inset-0 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 z-40" aria-label="Close appointment modal">
+    </button>
 
-            // Botón para reservar una nueva cita
-            const bookNewBtn = document.getElementById('bookNewBtn');
-            if (bookNewBtn) bookNewBtn.addEventListener('click', () => location.href = 'View_Reserva.php');
-
-            // Modal de confirmación para cerrar sesión
-            const lb = document.getElementById('logoutBtn');
-            const settingsLogout = document.getElementById('settingsLogout');
-            const overlay = document.getElementById('confirmOverlay');
-            const modalWrap = document.getElementById('confirmModal');
-            const btnCancel = document.getElementById('cancelLogout');
-            const btnConfirm = document.getElementById('confirmLogout');
-
-            function openConfirm() {
-                if (overlay && modalWrap) {
-                    overlay.classList.remove('opacity-0', 'pointer-events-none');
-                    overlay.classList.add('opacity-100');
-                    modalWrap.classList.remove('opacity-0', 'pointer-events-none');
-                    modalWrap.classList.add('opacity-100');
-                }
-            }
-
-            function closeConfirm() {
-                if (overlay && modalWrap) {
-                    overlay.classList.remove('opacity-100');
-                    overlay.classList.add('opacity-0', 'pointer-events-none');
-                    modalWrap.classList.remove('opacity-100');
-                    modalWrap.classList.add('opacity-0', 'pointer-events-none');
-                }
-            }
-
-            if (lb) lb.addEventListener('click', function(e) { e.preventDefault(); openConfirm(); });
-            if (settingsLogout) settingsLogout.addEventListener('click', function(e) { e.preventDefault(); openConfirm(); });
-            if (btnCancel) btnCancel.addEventListener('click', function() { closeConfirm(); });
-            if (overlay) overlay.addEventListener('click', function() { closeConfirm(); });
+   
+    <div id="apptOpcionesModal" 
+         class="fixed inset-0 flex items-center justify-center pointer-events-none z-50 px-4">
+        
+        <div id="apptModalCard" class="bg-white dark:bg-gray-800 rounded-2xl p-6 w-full max-w-sm shadow-2xl border border-gray-200 dark:border-gray-700 transform scale-95 opacity-0 transition-all duration-300">
             
-            if (btnConfirm) btnConfirm.addEventListener('click', function() {
-                document.documentElement.classList.add('transition-opacity', 'duration-700');
-                document.documentElement.style.opacity = '0.01';
-                
-                // Usar Auth.logout que ahora redirige a logout.php
-                if (window.Auth && window.Auth.logout) {
-                    window.Auth.logout();
-                }
-            });
+            <div class="text-center mb-6">
+                <div class="mx-auto w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mb-3">
+                    <span class="material-symbols-outlined text-gray-600 dark:text-gray-300">settings</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">Opciones de Cita</h3>
+                <p id="modalCita_Info" class="text-sm text-gray-500 dark:text-gray-400 mt-1">Selecciona una acción</p>
+            </div>
 
-            // Cargar citas desde localStorage (Esto sigue siendo solo frontend por ahora)
-            try {
-                const raw = localStorage.getItem('vision_appointments');
-                const arr = raw ? JSON.parse(raw) : [];
-                const upcoming = arr.filter(a => new Date(a.date) >= new Date());
-                const past = arr.filter(a => new Date(a.date) < new Date());
+            <div class="space-y-3">
+                <!-- Botón Editar (Redirige) -->
+                <button onclick="window.handleEditAppointment()" class="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors">
+                    <span class="material-symbols-outlined text-sm">edit</span>
+                    Editar
+                </button>
 
-                const container = document.getElementById('appointmentsContainer');
-                const pastContainer = document.getElementById('pastContainer');
+                <!-- Botón Eliminar (Acción) -->
+                <button onclick="window.Eliminar_cita()" class="w-full flex items-center justify-center gap-2 bg-white dark:bg-gray-800 border border-red-200 dark:border-red-900/50 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 font-medium py-2.5 px-4 rounded-lg transition-colors">
+                    <span class="material-symbols-outlined text-sm">delete</span>
+                    Cancelar cita
+                </button>
 
-                function makeCard(app) {
-                    const d = new Date(app.date);
-                    const el = document.createElement('div');
-                    el.className = 'bg-white dark:bg-background-dark/50 rounded-xl p-5 shadow-sm border border-gray-200 dark:border-gray-700/50 flex items-start gap-4';
-                    el.innerHTML = `
-                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-lg w-24 h-24 flex-shrink-0" style="background-color: #eee;"></div>
-                    <div class="flex-grow">
-                        <p class="text-primary font-semibold">${d.toLocaleDateString()} ${app.time}</p>
-                        <p class="text-gray-800 dark:text-gray-100 font-bold mt-1">${app.type}</p>
-                        <p class="text-gray-500 dark:text-gray-400 text-sm">Profesional asignado</p>
-                    </div>`;
-                    return el;
-                }
+                <div class="relative py-2">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-200 dark:border-gray-700"></div>
+                    </div>
+                </div>
 
-                if (container) {
-                    if (upcoming.length === 0) { container.innerHTML = '<p class="text-gray-600">No tienes citas próximas.</p>'; } 
-                    else { upcoming.forEach(a => container.appendChild(makeCard(a))); }
-                }
-                if (pastContainer) {
-                    if (past.length === 0) { pastContainer.innerHTML = '<p class="text-gray-600">No hay citas pasadas.</p>'; } 
-                    else { past.forEach(a => pastContainer.appendChild(makeCard(a))); }
-                }
-            } catch (e) { console.error(e); }
-        })();
+                <button onclick="window.Cerrar_CitaModal()" class="w-full text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-sm font-medium py-2">
+                    Volver atrás
+                </button>
+            </div>
+        </div>
+    </div>
 
-        // Lógica de cambio de pestañas y edición de perfil
-        (function() {
-            const overviewBtn = document.getElementById('overviewBtn');
-            const settingsBtn = document.getElementById('settingsBtn');
-            const dashboardPanel = document.getElementById('dashboardPanel');
-            const settingsPanel = document.getElementById('settingsPanel');
-            const settingsEmail = document.getElementById('settingsEmail');
-
-            function setActive(btn) {
-                [overviewBtn, settingsBtn].forEach(b => {
-                    if (!b) return;
-                    b.classList.remove('bg-primary', 'text-white');
-                    b.classList.add('text-slate-700');
-                });
-                if (btn) {
-                    btn.classList.add('bg-primary', 'text-white');
-                    btn.classList.remove('text-slate-700');
-                }
-            }
-
-            if (overviewBtn) overviewBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                if (dashboardPanel) dashboardPanel.classList.remove('hidden');
-                if (settingsPanel) settingsPanel.classList.add('hidden');
-                setActive(overviewBtn);
-            });
-            if (settingsBtn) settingsBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                if (dashboardPanel) dashboardPanel.classList.add('hidden');
-                if (settingsPanel) settingsPanel.classList.remove('hidden');
-                setActive(settingsBtn);
-                
-                // Refrescar email en settings si fuera necesario
-                if(window.Auth) {
-                    const u = window.Auth.getUser();
-                    if(settingsEmail) settingsEmail.textContent = u.email;
-                }
-            });
-
-            setActive(overviewBtn);
-
-            // TOAST notifications
-            const toastContainer = document.createElement('div');
-            toastContainer.id = 'toastContainer';
-            toastContainer.className = 'fixed bottom-6 right-6 z-50 space-y-2';
-            document.body.appendChild(toastContainer);
-
-            function showToast(msg, time) {
-                const el = document.createElement('div');
-                el.className = 'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-4 py-2 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700';
-                el.textContent = msg;
-                toastContainer.appendChild(el);
-                setTimeout(() => {
-                    el.classList.add('opacity-0');
-                    setTimeout(() => el.remove(), 300);
-                }, time || 2500);
-            }
-
-            // Edición de Email
-            const emailEditBtn = document.getElementById('emailEditBtn');
-            const emailSaveBtn = document.getElementById('emailSaveBtn');
-            const emailCancelBtn = document.getElementById('emailCancelBtn');
-            const settingsEmailInput = document.getElementById('settingsEmailInput');
-
-            if (emailEditBtn) emailEditBtn.addEventListener('click', function() {
-                settingsEmailInput.value = settingsEmail.textContent.trim();
-                settingsEmail.classList.add('hidden');
-                settingsEmailInput.classList.remove('hidden');
-                emailEditBtn.classList.add('hidden');
-                emailSaveBtn.classList.remove('hidden');
-                emailCancelBtn.classList.remove('hidden');
-            });
-            if (emailCancelBtn) emailCancelBtn.addEventListener('click', function() {
-                settingsEmail.classList.remove('hidden');
-                settingsEmailInput.classList.add('hidden');
-                emailEditBtn.classList.remove('hidden');
-                emailSaveBtn.classList.add('hidden');
-                emailCancelBtn.classList.add('hidden');
-            });
-            if (emailSaveBtn) emailSaveBtn.addEventListener('click', function() {
-                const nv = settingsEmailInput.value.trim();
-                if (!nv) { showToast('Email no puede estar vacío'); return; }
-                
-                if (window.Auth && window.Auth.updateUser) {
-                    window.Auth.updateUser({ email: nv });
-                    settingsEmail.textContent = nv;
-                    showToast('Email actualizado (simulado)');
-                }
-                settingsEmail.classList.remove('hidden');
-                settingsEmailInput.classList.add('hidden');
-                emailEditBtn.classList.remove('hidden');
-                emailSaveBtn.classList.add('hidden');
-                emailCancelBtn.classList.add('hidden');
-            });
-
-            // Helper para selects
-            function wireSelectFlow(prefix, displayId, selectId, editId, saveId, cancelId) {
-                const display = document.getElementById(displayId);
-                const select = document.getElementById(selectId);
-                const edit = document.getElementById(editId);
-                const save = document.getElementById(saveId);
-                const cancel = document.getElementById(cancelId);
-                if (!edit) return;
-                edit.addEventListener('click', function() {
-                    display.classList.add('hidden');
-                    select.classList.remove('hidden');
-                    edit.classList.add('hidden');
-                    save.classList.remove('hidden');
-                    cancel.classList.remove('hidden');
-                });
-                cancel.addEventListener('click', function() {
-                    display.classList.remove('hidden');
-                    select.classList.add('hidden');
-                    edit.classList.remove('hidden');
-                    save.classList.add('hidden');
-                    cancel.classList.add('hidden');
-                });
-                save.addEventListener('click', function() {
-                    const val = select.value;
-                    if (window.Auth && window.Auth.updateUser) {
-                        const obj = {};
-                        obj[prefix] = val;
-                        window.Auth.updateUser(obj);
-                    }
-                    display.textContent = select.options[select.selectedIndex].text;
-                    showToast('Guardado');
-                    display.classList.remove('hidden');
-                    select.classList.add('hidden');
-                    edit.classList.remove('hidden');
-                    save.classList.add('hidden');
-                    cancel.classList.add('hidden');
-                });
-            }
-            wireSelectFlow('language', 'settingsLanguage', 'settingsLanguageSelect', 'languageEditBtn', 'languageSaveBtn', 'languageCancelBtn');
-            wireSelectFlow('timezone', 'settingsTimezone', 'settingsTimezoneSelect', 'timezoneEditBtn', 'timezoneSaveBtn', 'timezoneCancelBtn');
-        })();
-    </script>
+    <script src="Perfil_Cita.js"></script>
 </body>
 </html>
