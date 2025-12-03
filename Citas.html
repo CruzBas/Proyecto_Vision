@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Mis Citas</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13a4ec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101c22",
+                        "foreground-light": "#101c22",
+                        "foreground-dark": "#f6f7f8",
+                        "subtle-light": "#e5e7eb",
+                        "subtle-dark": "#1f2937",
+                        "muted-light": "#6b7280",
+                        "muted-dark": "#9ca3af"
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-foreground-light dark:text-foreground-dark">
+<div class="flex flex-col min-h-screen">
+    <header class="sticky top-0 z-10 flex items-center justify-between px-4 sm:px-6 lg:px-10 py-3 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-b border-subtle-light dark:border-subtle-dark">
+        <div class="flex items-center gap-4">
+            <div class="text-primary size-7">
+                <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_6_319)">
+                        <path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z" fill="currentColor"></path>
+                    </g>
+                    <defs><clipPath id="clip0_6_319"><rect fill="white" height="48" width="48"></rect></clipPath></defs>
+                </svg>
+            </div>
+            <h1 class="text-xl font-bold">Vision</h1>
+        </div>
+        <nav class="hidden md:flex items-center gap-6">
+            <a class="text-sm font-medium text-muted-light dark:text-muted-dark hover:text-primary transition-colors" href="Index.html">Panel de Control</a>
+            <a class="text-sm font-medium text-muted-light dark:text-muted-dark hover:text-primary transition-colors" href="Citas.html">Citas</a>
+            <a class="text-sm font-medium text-muted-light dark:text-muted-dark hover:text-primary transition-colors" href="#">Recursos</a>
+            <a class="text-sm font-medium text-muted-light dark:text-muted-dark hover:text-primary transition-colors" href="#">Comunidad</a>
+        </nav>
+        <div class="flex items-center gap-4">
+            <button class="p-2 rounded-full hover:bg-subtle-light dark:hover:bg-subtle-dark transition-colors">
+                <span class="material-symbols-outlined text-muted-light dark:text-muted-dark">notifications</span>
+            </button>
+            <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCrwRmU93egDKFtXj_7qs2ityYsWRTq8H-ndHRFqZOFNLtgQ5GtpSCXD-479HJvsEeQiC3HyRsBEFrvDW3BaWOt7LLLZdIQAiuXWKhQcbJGgMwFGt3vdsjXYY7GBxZfAuK8RRAcvcYMCptBxdcLMsVlsCsODFdpO0S86nxzq4LgyssEAGEX9tEl0o1o239mz126f97jslJaFHxT8Hxtt5CiVDNSk0f75MFWCoC12y6UK_nn_PswV-rt_0rmcbOh3o57QxAq7lkTdQs");'></div>
+        </div>
+    </header>
+
+    <main class="flex-1 w-full max-w-6xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold mb-8">Mis Citas</h2>
+
+        <!-- Alertas General y Éxito -->
+        <div id="alertaGeneral" class="mb-6 p-4 rounded-lg hidden transition-all duration-300"></div>
+        <div id="alertaExito" class="mb-6 p-4 rounded-lg bg-green-100 border border-green-400 text-green-700 hidden transition-all duration-300"></div>
+
+        <!-- Contenedor de Citas -->
+        <div id="contenedorCitas" class="space-y-4">
+            <!-- Las citas se cargarán aquí con JavaScript -->
+        </div>
+
+        <!-- Loader -->
+        <div id="loader" class="flex justify-center items-center py-12">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+        </div>
+    </main>
+
+    <footer class="bg-background-light dark:bg-subtle-dark border-t border-subtle-light dark:border-subtle-dark py-6">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm text-muted-light dark:text-muted-dark">
+            <p>&copy; 2024 Vision. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</div>
+
+<script src="Citas.js"></script>
+</body>
+</html>
