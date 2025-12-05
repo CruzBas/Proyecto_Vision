@@ -1,3 +1,9 @@
+<?php
+session_start();
+$Loggeado = isset($_SESSION['user_id']);
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -70,28 +76,36 @@
           <h2 class="text-xl font-bold"> Vision</h2>
         </div>
         <nav class="hidden md:flex items-center gap-8">
-          <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary" href="Index.html"><button>Pagina Principal</button></a>
-          <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary" href="Nosotros.html"><button>Sobre nosotros</button></a>
-          <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary" href="Servicios.html"><button>Servicios</button></a>
+          <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
+            href="Index.html"><button>Pagina Principal</button></a>
+          <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
+            href="Nosotros.html"><button>Sobre nosotros</button></a>
+          <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
+            href="Servicios.html"><button>Servicios</button></a>
         </nav>
-  <script>
-    
-    document.addEventListener('DOMContentLoaded', function(){
-      try{
-        if(window.Auth && typeof window.Auth.isLoggedIn === 'function'){
-          if(!window.Auth.isLoggedIn()){
-            var next = 'mensaje.html';
-            location.href = 'login.html?next=' + encodeURIComponent(next);
-          }
-        }
-      }catch(e){/* ignore */}
-    });
-  </script>
+        <script>
+
+          document.addEventListener('DOMContentLoaded', function () {
+            try {
+              if (window.Auth && typeof window.Auth.isLoggedIn === 'function') {
+                if (!window.Auth.isLoggedIn()) {
+                  var next = 'mensaje.html';
+                  location.href = 'login.html?next=' + encodeURIComponent(next);
+                }
+              }
+            } catch (e) {/* ignore */ }
+          });
+        </script>
         <div class="flex items-center gap-4">
-          <a href="login.html?redirect=reserva.php" class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-primary text-white text-sm font-bold shadow-lg hover:bg-primary/90 transition-colors">Crea tu cita</a>
-          <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ml-4" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCVwv-zS-uQ4jQkoGZ114abTXXqEX-c3xiMOh4s9_EPt3GoQHd2WOeJroq3oiNMJ5KbtQTAAOn3wilUGvp35adPvzlib0BCn49l08Y2GYRjAgMMB33pGCdMy3aH7BkrVr0zOMB7JBdAMbPVcwVbPmszNA3ZAPvuVoXQl6KpwehiIbxoBrP88-Pn3ersPqFfletB5gpscpKA2UzFNq6fD5hl5rscKhRFMCGk0b_mTq6GuUVUy_7PJmi8Mrle6oVB8KXkA79J6SO6FbA");'></div>
+          <?php if (!$Loggeado): ?>
+          <a href="login.html"><button
+              class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-primary text-white text-sm font-bold shadow-lg hover:bg-primary/90 transition-colors">Inicio de Sesion</button></a>
+          <?php else: ?>
+          <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
+            style='background-image: url("https://cdn-icons-png.flaticon.com/512/11753/11753627.png");'>
+          </div>
+          <?php endif; ?>
         </div>
-      </div>
     </header>
     <main class="flex-grow container mx-auto px-6 py-16">
       <div class="max-w-4xl mx-auto">
@@ -104,12 +118,12 @@
           <div class="space-y-6">
             <h3 class="text-2xl font-bold">Formulario de contacto</h3>
             <form id="contactForm" class="space-y-6" novalidate>
-              
+
               <div id="formAlert" role="status" aria-live="polite" class="hidden rounded-md p-3 text-sm"></div>
 
               <div>
                 <label class="block text-sm font-medium mb-2" for="name">Nombre y apellidos</label>
-                <input required name="name" aria-required="true" aria-describedby="nameHelp" 
+                <input required name="name" aria-required="true" aria-describedby="nameHelp"
                   class="form-input w-full bg-background-light dark:bg-background-dark rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
                   id="name" placeholder="Ingresa tu nombre" type="text" />
                 <p id="nameHelp" class="sr-only">Tu nombre completo (requerido)</p>
@@ -123,7 +137,8 @@
               </div>
               <div>
                 <label class="block text-sm font-medium mb-2" for="phone">Numero de telefono</label>
-                <input required name="phone" aria-required="true" aria-describedby="phoneHelp" pattern="[0-9+\-()\s]{6,}"
+                <input required name="phone" aria-required="true" aria-describedby="phoneHelp"
+                  pattern="[0-9+\-()\s]{6,}"
                   class="form-input w-full bg-background-light dark:bg-background-dark rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
                   id="phone" placeholder="Ingresa tu numero de telefono" type="tel" />
                 <p id="phoneHelp" class="sr-only">Número de teléfono (6+ dígitos). Puedes usar +, -, () y espacios.</p>
@@ -136,7 +151,7 @@
                 <p id="messageHelp" class="sr-only">Describe brevemente cómo podemos ayudarte (requerido)</p>
               </div>
               <div>
-                <button id="submitBtn" 
+                <button id="submitBtn"
                   class="w-full bg-primary text-white font-bold text-sm px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors"
                   type="submit">
                   Enviar mensaje
@@ -204,7 +219,8 @@
     <footer class="border-t border-black/10 dark:border-white/10 mt-16">
       <div class="container mx-auto px-6 py-8 text-center text-black/60 dark:text-white/60">
         <div class="flex justify-center gap-6 mb-4">
-          <a class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary" href="Politica.html"><button>Politica de privacidad</button></a>
+          <a class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary"
+            href="Politica.html"><button>Politica de privacidad</button></a>
           <a class="text-sm hover:text-primary transition-colors" href="#">Terminos de servicio</a>
         </div>
         <p class="text-sm">© 2025 Vision. All rights reserved.</p>
@@ -229,7 +245,7 @@
           alertBox.classList.remove('bg-red-50', 'text-red-700');
           alertBox.classList.add('bg-primary', 'text-white');
         }
-        
+
         // Ocultar automáticamente después de 5 segundos
         clearTimeout(showAlert._t);
         showAlert._t = setTimeout(() => {
@@ -244,7 +260,7 @@
           errors.push('Ingresa un nombre válido.');
         }
         const email = data.get('email') || '';
-        
+
         if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
           errors.push('Ingresa un correo electrónico válido.');
         }
@@ -258,29 +274,46 @@
         return errors;
       }
 
-      // Envío del formulario: actualmente simulado en el cliente
-      // En producción reemplazar por fetch POST a una API.
-      form.addEventListener('submit', function (ev) {
-        ev.preventDefault();
-        const submitBtn = document.getElementById('submitBtn');
-        submitBtn.disabled = true;
-        submitBtn.setAttribute('aria-busy', 'true');
+   form.addEventListener('submit', function (ev) {
+  ev.preventDefault();
+  const submitBtn = document.getElementById('submitBtn');
+  submitBtn.disabled = true;
+  submitBtn.setAttribute('aria-busy', 'true');
 
-        const formData = new FormData(form);
-        const errors = validateForm(formData);
-        if (errors.length) {
-          showAlert(errors.join(' '), 'error');
-          submitBtn.disabled = false;
-          submitBtn.removeAttribute('aria-busy');
-          return;
-        }
+  const formData = new FormData(form);
+  const errors = validateForm(formData);
 
-        // Simulamos envío exitoso
-        showAlert('Mensaje enviado correctamente.');
-        form.reset();
-        submitBtn.disabled = false;
-        submitBtn.removeAttribute('aria-busy');
-      });
+  if (errors.length) {
+    showAlert(errors.join(' '), 'error');
+    submitBtn.disabled = false;
+    submitBtn.removeAttribute('aria-busy');
+    return;
+  }
+
+  // ENVÍO REAL DEL FORMULARIO
+  fetch("sendMail.php", {
+    method: "POST",
+    body: formData
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.status === "ok") {
+      showAlert("Mensaje enviado correctamente.");
+      form.reset();
+    } else {
+      showAlert("Error al enviar el mensaje.", "error");
+    }
+  })
+  .catch(() => {
+    showAlert("No se pudo conectar con el servidor.", "error");
+  })
+  .finally(() => {
+    submitBtn.disabled = false;
+    submitBtn.removeAttribute('aria-busy');
+  });
+});
+
+    
     })();
   </script>
 
