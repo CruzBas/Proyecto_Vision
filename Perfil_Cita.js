@@ -1,6 +1,6 @@
 
 (function () {
-    
+
     const lb = document.getElementById('logoutBtn');
     const Logout = document.getElementById('btnLogout');
     const overlay = document.getElementById('confirmarOverlay');
@@ -178,12 +178,14 @@
 (function () {
     const overviewBtn = document.getElementById('overviewBtn');
     const settingsBtn = document.getElementById('settingsBtn');
+    const HistorialBtn = document.getElementById('HistorialBtn');
     const dashboardPanel = document.getElementById('dashboardPanel');
     const settingsPanel = document.getElementById('settingsPanel');
+    const HistorialPanel = document.getElementById('HistorialPanel')
     const settingsEmail = document.getElementById('settingsEmail');
 
     function setActive(btn) {
-        [overviewBtn, settingsBtn].forEach(b => {
+        [overviewBtn, settingsBtn, HistorialBtn].forEach(b => {
             if (b) {
                 b.classList.remove('bg-primary', 'text-white');
                 b.classList.add('text-slate-700');
@@ -199,13 +201,23 @@
         e.preventDefault();
         if (dashboardPanel) dashboardPanel.classList.remove('hidden');
         if (settingsPanel) settingsPanel.classList.add('hidden');
+        if (HistorialBtn) HistorialPanel.classList.add('hidden');
         setActive(overviewBtn);
+    });
+
+    if (HistorialBtn) HistorialBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (HistorialPanel) HistorialPanel.classList.remove('hidden');
+        if (settingsPanel) settingsPanel.classList.add('hidden');
+        if (HistorialBtn) dashboardPanel.classList.add('hidden');
+        setActive(HistorialBtn);
     });
 
     if (settingsBtn) settingsBtn.addEventListener('click', (e) => {
         e.preventDefault();
         if (dashboardPanel) dashboardPanel.classList.add('hidden');
         if (settingsPanel) settingsPanel.classList.remove('hidden');
+        if (HistorialBtn) HistorialPanel.classList.add('hidden');
         setActive(settingsBtn);
         if (window.Auth && settingsEmail) settingsEmail.textContent = window.Auth.getUser().email;
     });

@@ -1,3 +1,8 @@
+<?php
+session_start();
+$Loggeado = isset($_SESSION['user_id']);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,12 +42,13 @@
 </head>
 
 <!--
-    Terminos.html - Términos y condiciones
+    Terminos.php - Términos y condiciones
     - Página estática con texto legal. Contiene auth.js al final para controles de sesión
         en la interfaz (por ejemplo, mostrar avatar o cambiar enlace de login).
 -->
+
 <body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
-        <div class="flex flex-col min-h-screen">
+    <div class="flex flex-col min-h-screen">
         <header class="bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm sticky top-0 z-10">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between h-20 border-b border-primary/20">
@@ -64,20 +70,31 @@
                         <h2 class="text-xl font-bold">Vision</h2>
                     </div>
                     <nav class="hidden md:flex items-center gap-8">
-                        <a class="text-sm font-medium hover:text-primary transition-colors" href="Index.html">Página
+                        <a class="text-sm font-medium hover:text-primary transition-colors" href="Index.php">Página
                             principal</a>
                         <a class="text-sm font-medium hover:text-primary transition-colors"
-                            href="Servicios.html">Servicios</a>
-                        <a class="text-sm font-medium hover:text-primary transition-colors" href="Nosotros.html">Sobre
+                            href="Servicios.php">Servicios</a>
+                        <a class="text-sm font-medium hover:text-primary transition-colors" href="Nosotros.php">Sobre
                             nosotros</a>
                         <a class="text-sm font-medium hover:text-primary transition-colors"
                             href="mensaje.html">Contacto</a>
                     </nav>
-                    <a href="View_Reserva.php"
-                        class="inline-block bg-primary text-white font-bold text-sm px-6 py-2.5 rounded-lg hover:bg-primary/90 transition-colors shadow-md">Reservar cita</a>
-                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ml-4"
-                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCVwv-zS-uQ4jQkoGZ114abTXXqEX-c3xiMOh4s9_EPt3GoQHd2WOeJroq3oiNMJ5KbtQTAAOn3wilUGvp35adPvzlib0BCn49l08Y2GYRjAgMMB33pGCdMy3aH7BkrVr0zOMB7JBdAMbPVcwVbPmszNA3ZAPvuVoXQl6KpwehiIbxoBrP88-Pn3ersPqFfletB5gpscpKA2UzFNq6fD5hl5rscKhRFMCGk0b_mTq6GuUVUy_7PJmi8Mrle6oVB8KXkA79J6SO6FbA");'>
-                    </div>
+                    <?php if (!$Loggeado): ?>
+                    <a href="login.html">
+                        <button
+                            class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-primary text-white text-sm font-bold shadow-lg hover:bg-primary/90 transition-colors">
+                            <span class="truncate">Inicio de Sesion</span>
+                        </button>
+                    </a>
+                    <?php else: ?>
+                    <a href="perfil.php">
+                        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
+                            style='background-image: url("https://cdn-icons-png.flaticon.com/512/11753/11753627.png");'>
+                        </div>
+                    </a>
+
+                    <?php endif; ?>
+
                 </div>
             </div>
         </header>

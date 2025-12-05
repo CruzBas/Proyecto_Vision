@@ -22,7 +22,7 @@ if (isset($_REQUEST['id'])) {
   $citaId = $_REQUEST['id'];
 } else {
   
-  header('Location: Index.html');
+  header('Location: Index.php');
   exit;
 }
 $userId = $_SESSION['user_id'];
@@ -53,7 +53,7 @@ $userId = $_SESSION['user_id'];
    <header class="border-b border-primary/20 dark:border-primary/10">
       <div class="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8 py-4">
         <div class="flex items-center gap-4">
-         <a href="Index.html">
+         <a href="Index.php">
           <button>
             <div class="w-8 h-8 text-primary">
               <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
@@ -68,11 +68,11 @@ $userId = $_SESSION['user_id'];
         </div>
         <nav class="hidden items-center gap-8 md:flex">
           <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
-            href="Index.html"><button>Pagina Principal</button></a>
+            href="Index.php"><button>Pagina Principal</button></a>
             <a class="text-sm font-medium text-slate-700 hover:text-primary dark:text-slate-300 dark:hover:text-primary"
-            href="Servicios.html"><button>Servicios</button></a>
+            href="Servicios.php"><button>Servicios</button></a>
           <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
-            href="Nosotros.html"><button>Sobre Nosotros</button></a>
+            href="Nosotros.php"><button>Sobre Nosotros</button></a>
           <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
             href="mensaje.html"><button>Contactacto</button></a>
         </nav>

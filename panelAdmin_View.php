@@ -72,9 +72,9 @@ if (empty($_SESSION['user_id'])) {
                 </div>
 
                 <nav class="hidden md:flex items-center gap-8 ml-6">
-                    <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="Index.html">Página principal</a>
-                    <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="Servicios.html">Servicios</a>
-                    <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="Nosotros.html">Sobre nosotros</a>
+                    <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="Index.php">Página principal</a>
+                    <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="Servicios.php">Servicios</a>
+                    <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="Nosotros.php">Sobre nosotros</a>
                     <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="mensaje.html">Contacto</a>
                 </nav>
             </div>

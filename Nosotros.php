@@ -1,3 +1,8 @@
+<?php
+session_start();
+$Loggeado = isset($_SESSION['user_id']);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,7 +28,12 @@
           fontFamily: {
             display: ["Inter"],
           },
-          borderRadius: { DEFAULT: "0.5rem", lg: "1rem", xl: "1.5rem", full: "9999px" },
+          borderRadius: {
+            DEFAULT: "0.5rem",
+            lg: "1rem",
+            xl: "1.5rem",
+            full: "9999px"
+          },
         },
       },
     };
@@ -36,49 +46,50 @@
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 </head>
 
-<!--
-  Nosotros.html - Página estática sobre el equipo/organización.
-  - Contenido informativo. auth.js se incluye al final para manejar estado de sesión
-    (por ejemplo, transformar el enlace de login en 'Cerrar sesión' si aplica).
--->
+
 <body class="bg-background-light dark:bg-background-dark font-display text-slate-800 dark:text-slate-200">
   <div class="flex h-auto min-h-screen w-full flex-col">
-      <header class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
-        <div class="container mx-auto flex items-center justify-between whitespace-nowrap px-6 py-4">
-          <div class="flex items-center gap-3">
-            <a href="Index.html">
-              <button>
-                <div class="w-8 h-8 text-primary">
-                  <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z"
-                      fill="currentColor"></path>
-                  </svg>
-                </div>
-              </button>
-            </a>
-            <h2 class="text-xl font-bold text-gray-900 dark:text-white">Vision</h2>
-          </div>
-          <nav class="hidden md:flex items-center gap-8">
-            <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
-              href="Index.html"><button>Pagina Principal</button></a>
-            <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
-              href="Servicios.html"><button>Servicios</button></a>
-            <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
-              href="mensaje.html"><button>Contacto</button></a>
-          </nav>
-          <div class="flex items-center gap-4">
-            <a href="login.html?redirect=reserva.php">
-              <button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-primary text-white text-sm font-bold shadow-lg hover:bg-primary/90 transition-colors">
-                Reservar cita
-              </button>
-            </a>
-            <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
-              style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCVwv-zS-uQ4jQkoGZ114abTXXqEX-c3xiMOh4s9_EPt3GoQHd2WOeJroq3oiNMJ5KbtQTAAOn3wilUGvp35adPvzlib0BCn49l08Y2GYRjAgMMB33pGCdMy3aH7BkrVr0zOMB7JBdAMbPVcwVbPmszNA3ZAPvuVoXQl6KpwehiIbxoBrP88-Pn3ersPqFfletB5gpscpKA2UzFNq6fD5hl5rscKhRFMCGk0b_mTq6GuUVUy_7PJmi8Mrle6oVB8KXkA79J6SO6FbA");'>
-            </div>
-          </div>
+    <header class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
+      <div class="container mx-auto flex items-center justify-between whitespace-nowrap px-6 py-4">
+        <div class="flex items-center gap-3">
+          <a href="Index.php">
+            <button>
+              <div class="w-8 h-8 text-primary">
+                <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z"
+                    fill="currentColor"></path>
+                </svg>
+              </div>
+            </button>
+          </a>
+          <h2 class="text-xl font-bold text-gray-900 dark:text-white">Vision</h2>
         </div>
-      </header>
+        <nav class="hidden md:flex items-center gap-8">
+          <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
+            href="Index.php"><button>Pagina Principal</button></a>
+          <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
+            href="Servicios.php"><button>Servicios</button></a>
+          <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
+            href="mensaje.html"><button>Contacto</button></a>
+        </nav>
+        <div class="flex items-center gap-4">
+          <?php if (!$Loggeado): ?>
+            <a href="login.html">
+              <button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-primary text-white text-sm font-bold shadow-lg hover:bg-primary/90 transition-colors">
+                Inicio de Sesion
+              </button>
+            </a>
+          <?php else: ?>
+            <a href="perfil.php">
+              <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
+                style='background-image: url("https://cdn-icons-png.flaticon.com/512/11753/11753627.png");'>
+              </div>
+            </a>
+          <?php endif; ?>
+        </div>
+      </div>
+    </header>
     <main class="flex-grow">
       <div class="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
         <div class="relative mb-12 h-[500px] w-full overflow-hidden rounded-xl">
@@ -210,7 +221,7 @@
 <script src="auth.js"></script>
 
 <script>
-  (function () {
+  (function() {
     // Helpers
     function el(tag, props = {}, ...children) {
       const e = document.createElement(tag);
@@ -219,7 +230,10 @@
         else if (k === 'html') e.innerHTML = v;
         else e.setAttribute(k, v);
       });
-      children.flat().forEach(ch => { if (typeof ch === 'string') e.appendChild(document.createTextNode(ch)); else if (ch) e.appendChild(ch); });
+      children.flat().forEach(ch => {
+        if (typeof ch === 'string') e.appendChild(document.createTextNode(ch));
+        else if (ch) e.appendChild(ch);
+      });
       return e;
     }
 
@@ -229,7 +243,7 @@
     const generatedArea = document.getElementById('generatedHtmlArea');
     const generatedTextarea = document.getElementById('generatedHtml');
 
-    
+
     function setRatingUI(container, value) {
       container.dataset.rating = value;
       Array.from(container.children).forEach((btn, i) => {
@@ -244,35 +258,79 @@
       }
     });
 
-    function createTestimonialCard({name, photo, rating, message, likes = 0, dislikes = 0}) {
-      const img = el('img',{alt: name + "'s avatar", class: 'h-12 w-12 rounded-full object-cover', src: photo || 'https://via.placeholder.com/150'});
-      const title = el('p',{class: 'font-semibold text-slate-900 dark:text-white'}, name);
-      const date = el('p',{class: 'text-sm text-slate-500 dark:text-slate-400'}, new Date().toLocaleDateString());
+    function createTestimonialCard({
+      name,
+      photo,
+      rating,
+      message,
+      likes = 0,
+      dislikes = 0
+    }) {
+      const img = el('img', {
+        alt: name + "'s avatar",
+        class: 'h-12 w-12 rounded-full object-cover',
+        src: photo || 'https://via.placeholder.com/150'
+      });
+      const title = el('p', {
+        class: 'font-semibold text-slate-900 dark:text-white'
+      }, name);
+      const date = el('p', {
+        class: 'text-sm text-slate-500 dark:text-slate-400'
+      }, new Date().toLocaleDateString());
 
-      const header = el('div',{class: 'flex items-center gap-4'}, img, el('div',{}, title, date));
+      const header = el('div', {
+        class: 'flex items-center gap-4'
+      }, img, el('div', {}, title, date));
 
-      const stars = el('div',{class: 'mt-3 flex items-center', 'aria-hidden': 'true'});
-      for (let i=1;i<=5;i++) {
-        const star = el('button',{type:'button', class:'material-symbols-outlined text-primary text-xl star-btn', 'data-value': i}, 'star');
+      const stars = el('div', {
+        class: 'mt-3 flex items-center',
+        'aria-hidden': 'true'
+      });
+      for (let i = 1; i <= 5; i++) {
+        const star = el('button', {
+          type: 'button',
+          class: 'material-symbols-outlined text-primary text-xl star-btn',
+          'data-value': i
+        }, 'star');
         if (i > rating) star.classList.add('opacity-30');
         stars.appendChild(star);
       }
 
-      const msg = el('p',{class: 'mt-4 text-base text-slate-600 dark:text-slate-300'}, message);
+      const msg = el('p', {
+        class: 'mt-4 text-base text-slate-600 dark:text-slate-300'
+      }, message);
 
-     
-      const likeBtn = el('button',{class: 'flex items-center gap-1.5 transition-colors hover:text-primary like-btn', type:'button'}, el('span',{class:'material-symbols-outlined text-lg'}, 'thumb_up'), el('span',{class:'text-sm font-medium like-count'}, String(likes)));
-      const dislikeBtn = el('button',{class: 'flex items-center gap-1.5 transition-colors hover:text-slate-600 dark:hover:text-slate-300 dislike-btn', type:'button'}, el('span',{class:'material-symbols-outlined text-lg'}, 'thumb_down'), el('span',{class:'text-sm font-medium dislike-count'}, String(dislikes)));
 
-      const actions = el('div',{class: 'mt-4 flex items-center gap-6 text-slate-500 dark:text-slate-400'}, likeBtn, dislikeBtn);
+      const likeBtn = el('button', {
+        class: 'flex items-center gap-1.5 transition-colors hover:text-primary like-btn',
+        type: 'button'
+      }, el('span', {
+        class: 'material-symbols-outlined text-lg'
+      }, 'thumb_up'), el('span', {
+        class: 'text-sm font-medium like-count'
+      }, String(likes)));
+      const dislikeBtn = el('button', {
+        class: 'flex items-center gap-1.5 transition-colors hover:text-slate-600 dark:hover:text-slate-300 dislike-btn',
+        type: 'button'
+      }, el('span', {
+        class: 'material-symbols-outlined text-lg'
+      }, 'thumb_down'), el('span', {
+        class: 'text-sm font-medium dislike-count'
+      }, String(dislikes)));
 
-      const card = el('div',{class:'rounded-lg border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-background-dark'});
+      const actions = el('div', {
+        class: 'mt-4 flex items-center gap-6 text-slate-500 dark:text-slate-400'
+      }, likeBtn, dislikeBtn);
+
+      const card = el('div', {
+        class: 'rounded-lg border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-background-dark'
+      });
       card.appendChild(header);
       card.appendChild(stars);
       card.appendChild(msg);
       card.appendChild(actions);
 
-      
+
       stars.addEventListener('click', (ev) => {
         if (ev.target && ev.target.matches('.star-btn')) {
           const v = Number(ev.target.dataset.value);
@@ -294,7 +352,7 @@
       return card;
     }
 
-    
+
 
     document.getElementById('addTestimonial').addEventListener('click', (ev) => {
       ev.preventDefault();
@@ -302,16 +360,24 @@
       const photo = document.getElementById('t_photo').value.trim();
       const message = document.getElementById('t_message').value.trim() || 'Gracias por el apoyo.';
       const rating = Number(ratingContainer.dataset.rating) || 5;
-      const card = createTestimonialCard({name, photo, rating, message});
+      const card = createTestimonialCard({
+        name,
+        photo,
+        rating,
+        message
+      });
       grid.prepend(card);
       form.reset();
       setRatingUI(ratingContainer, 5);
     });
 
-    document.getElementById('clearForm').addEventListener('click', () => { form.reset(); setRatingUI(ratingContainer, 5); });
+    document.getElementById('clearForm').addEventListener('click', () => {
+      form.reset();
+      setRatingUI(ratingContainer, 5);
+    });
 
     document.getElementById('generateHTML').addEventListener('click', () => {
-      
+
       const nodes = Array.from(grid.children);
       const htmlStrings = nodes.map(node => node.outerHTML);
       generatedTextarea.value = htmlStrings.join('\n\n');

@@ -9,19 +9,19 @@ if (empty($_SESSION['user_id'])) {
 
 require_once 'db.php';
 
-$paciente = null; 
+$paciente = null;
 
 $query = "SELECT Nombre_Paciente, Apellido_Paciente FROM pacientes WHERE ID_Usuario = ?";
 
 if ($stmt = $mysqli->prepare($query)) {
-    $stmt->bind_param("i", $_SESSION['user_id']); 
+    $stmt->bind_param("i", $_SESSION['user_id']);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($row = $result->fetch_assoc()) {
         $paciente = $row;
     }
-    
+
     $stmt->close();
 }
 
@@ -73,7 +73,7 @@ $jsData = [
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
-      <script>
+    <script>
         const usuarioSesion = <?php echo json_encode($jsData); ?>;
 
         window.Auth = {
@@ -84,7 +84,7 @@ $jsData = [
                     email: usuarioSesion.email
                 };
             },
-            
+
             logout: function(options) {
                 window.location.href = 'logout.php';
             }
@@ -94,7 +94,7 @@ $jsData = [
 </head>
 
 <body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
-    
+
     <header class="bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm sticky top-0 z-50 border-b border-slate-200 dark:border-slate-800">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
@@ -114,13 +114,13 @@ $jsData = [
                     <h1 class="text-xl font-bold text-slate-900 dark:text-white">Vision</h1>
                 </div>
                 <nav class="hidden md:flex items-center gap-8">
-                    <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="Index.html">Página principal</a>
-                    <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="Servicios.html">Servicios</a>
-                    <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="Nosotros.html">Sobre nosotros</a>
+                    <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="Index.php">Página principal</a>
+                    <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="Servicios.php">Servicios</a>
+                    <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="Nosotros.php">Sobre nosotros</a>
                     <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="mensaje.html">Contacto</a>
                 </nav>
                 <div class="flex items-center">
-                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ml-4" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCVwv-zS-uQ4jQkoGZ114abTXXqEX-c3xiMOh4s9_EPt3GoQHd2WOeJroq3oiNMJ5KbtQTAAOn3wilUGvp35adPvzlib0BCn49l08Y2GYRjAgMMB33pGCdMy3aH7BkrVr0zOMB7JBdAMbPVcwVbPmszNA3ZAPvuVoXQl6KpwehiIbxoBrP88-Pn3ersPqFfletB5gpscpKA2UzFNq6fD5hl5rscKhRFMCGk0b_mTq6GuUVUy_7PJmi8Mrle6oVB8KXkA79J6SO6FbA");'></div>
+                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ml-4"></div>
                 </div>
             </div>
         </div>
@@ -129,10 +129,10 @@ $jsData = [
     <div class="flex min-h-screen">
         <aside class="w-64 bg-background-light dark:bg-background-dark border-r border-gray-200 dark:border-gray-700/50 flex flex-col p-6">
             <div class="flex items-center gap-3 mb-10">
-                <div id="perfilAvatar" class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAYXKK9-gR1zZ7av7idsVNcs5cGFmHKUC73uZ9p1SSe4_6M80Tvct9QFixH_FeguMfeWMPFeL3wXUf2qrqVh37say64QsR0uiqBJHIPz0nUJ6XurcZkZbhoTrb5FCQuCQr4xJOXHYpswluSY8n6ClWqZya8qWy4JcPhsj93zV12ovYKmymqKNBd5iBjyg_PSENrLm7DtNbf5S4Y5830tu7xQJZKo1xJAkPAkR4tkCAG-C8cVKENR1fyUVS--ZDQFeUCKX3WKcr1zWs");'></div>
+                <div id="perfilAvatar" class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12" style='background-image: url("https://cdn-icons-png.flaticon.com/512/11753/11753627.png");'></div>
                 <div class="flex flex-col">
                     <h1 id="perfilName" class="text-gray-900 dark:text-white font-bold text-lg">
-                     <?php echo htmlspecialchars($nombreCompleto); ?>
+                        <?php echo htmlspecialchars($nombreCompleto); ?>
 
                     </h1>
                     <p id="perfilRole" class="text-gray-500 dark:text-gray-400 text-sm">Paciente</p>
@@ -144,14 +144,32 @@ $jsData = [
             </div>
 
             <nav class="flex flex-col gap-2">
+
                 <a id="overviewBtn" class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary text-white font-medium" href="#">
                     <span class="material-symbols-outlined">dashboard</span>
                     <span>Resumen</span>
                 </a>
+
+                <a id="CalendarioBtn" class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-primary/10 dark:hover:bg-primary/20 font-medium" href="#">
+                    <span class="material-symbols-outlined">calendar_month</span>
+                    <span>Calendario</span>
+                </a>
+
+                <a id="ReservarBtn" class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-primary/10 dark:hover:bg-primary/20 font-medium" href="View_Reserva.php">
+                    <span class="material-symbols-outlined">calendar_add_on</span>
+                    <span>Reserva cita</span>
+                </a>
+
+                <a id="HistorialBtn" class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-primary/10 dark:hover:bg-primary/20 font-medium" href="#">
+                    <span class="material-symbols-outlined">history</span>
+                    <span>Historial</span>
+                </a>
+
                 <a id="settingsBtn" class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-primary/10 dark:hover:bg-primary/20 font-medium" href="#">
                     <span class="material-symbols-outlined">settings</span>
                     <span>Ajustes</span>
                 </a>
+
             </nav>
 
             <div class="mt-auto">
@@ -164,25 +182,27 @@ $jsData = [
 
         <main class="flex-1 p-8">
             <div class="max-w-4xl mx-auto">
-                
+
                 <div id="dashboardPanel">
-                    <h1 id="welcomeTitle" class="text-4xl font-bold text-gray-900 dark:text-white mb-8">¡Bienvenido,  <?php echo htmlspecialchars($nombreCompleto); ?>
-!</h1>
-                    <section>
-                        <div class="flex justify-between items-center mb-6">
-                            <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100">Tus citas</h2>
-                            <a href="View_Reserva.php">
-                            <button id="bookNewBtn" class="bg-primary text-white font-semibold py-2 px-6 rounded-lg hover:bg-primary/90 transition-colors">
-                                Reservar Cita
-                            </button>
-                            </a>
-                        </div>
-                        <div id="appointmentsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
-                    </section>
-                    <section class="mt-12">
-                        <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6">Citas pasadas</h2>
-                        <div id="pastContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
-                    </section>
+                    <h1 id="welcomeTitle" class="text-4xl font-bold text-gray-900 dark:text-white mb-8">¡Bienvenido, <?php echo htmlspecialchars($nombreCompleto); ?>
+                        !</h1>
+
+                </div>
+                <div id="HistorialPanel" class="hidden bg-white dark:bg-background-dark/50 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700/50">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Historial</h2>
+                    <div class="space-y-6">
+
+                        <section>
+                            <div class="flex justify-between items-center mb-6">
+                                <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100">Tus citas</h2>
+                            </div>
+                            <div id="appointmentsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+                        </section>
+                        <section class="mt-12">
+                            <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6">Citas pasadas</h2>
+                            <div id="pastContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+                        </section>
+                    </div>
                 </div>
 
                 <div id="settingsPanel" class="hidden bg-white dark:bg-background-dark/50 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700/50">
@@ -269,7 +289,7 @@ $jsData = [
         </main>
     </div>
 
-   
+
     <div id="confirmarOverlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"></div>
     <div id="confirmaModal" class="fixed inset-0 flex items-center justify-center pointer-events-none opacity-0 transition-all duration-300">
         <div class="bg-white dark:bg-gray-800 rounded-lg p-6 w-[90%] max-w-md shadow-xl border border-gray-200 dark:border-gray-700 transform scale-95">
@@ -282,17 +302,17 @@ $jsData = [
         </div>
     </div>
 
- 
+
     <button id="appOpcionesOverlay" onclick="window.Cerrar_CitaModal()"
-         class="fixed inset-0 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 z-40" aria-label="Close appointment modal">
+        class="fixed inset-0 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 z-40" aria-label="Close appointment modal">
     </button>
 
-   
-    <div id="apptOpcionesModal" 
-         class="fixed inset-0 flex items-center justify-center pointer-events-none z-50 px-4">
-        
+
+    <div id="apptOpcionesModal"
+        class="fixed inset-0 flex items-center justify-center pointer-events-none z-50 px-4">
+
         <div id="apptModalCard" class="bg-white dark:bg-gray-800 rounded-2xl p-6 w-full max-w-sm shadow-2xl border border-gray-200 dark:border-gray-700 transform scale-95 opacity-0 transition-all duration-300">
-            
+
             <div class="text-center mb-6">
                 <div class="mx-auto w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mb-3">
                     <span class="material-symbols-outlined text-gray-600 dark:text-gray-300">settings</span>
@@ -329,4 +349,5 @@ $jsData = [
 
     <script src="Perfil_Cita.js"></script>
 </body>
+
 </html>
