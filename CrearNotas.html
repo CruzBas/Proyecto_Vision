@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Crear Nueva Nota de Paciente</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+  </style>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#13a4ec",
+            "background-light": "#f6f7f8",
+            "background-dark": "#101c22",
+          },
+          fontFamily: {
+            "display": ["Inter", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.5rem",
+            "lg": "1rem",
+            "xl": "1.5rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark">
+<div class="relative flex min-h-screen w-full justify-center">
+<main class="w-full max-w-7xl p-8">
+<div class="flex flex-col gap-8 max-w-4xl mx-auto">
+<div class="flex flex-col gap-2">
+<a href="VerNotas" class="flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors w-fit mb-2">
+<span class="material-symbols-outlined">arrow_back</span>
+<span class="text-sm font-medium">Regresar a Notas y Evolución</span>
+</a>
+<h1 class="text-slate-900 dark:text-slate-100 text-4xl font-black leading-tight tracking-[-0.033em]">Crear Nueva Nota de Paciente</h1>
+<p class="text-slate-500 dark:text-slate-400 text-base font-normal leading-normal">Complete el formulario para agregar una nueva nota clínica para un paciente.</p>
+</div>
+<div class="w-full bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-6 md:p-8">
+<form class="flex flex-col gap-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<label class="flex flex-col w-full gap-2">
+<p class="text-slate-900 dark:text-slate-100 text-base font-medium leading-normal">Paciente</p>
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500">person</span>
+<select class="form-select w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-slate-900 dark:text-slate-100 focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 focus:border-primary dark:focus:border-primary h-14 placeholder:text-slate-400 dark:placeholder:text-slate-500 pl-12 pr-4 text-base font-normal leading-normal appearance-none">
+<option value="">-- Seleccione paciente --</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 pointer-events-none">expand_more</span>
+</div>
+</label>
+<label class="flex flex-col w-full gap-2">
+<p class="text-slate-900 dark:text-slate-100 text-base font-medium leading-normal">Fecha</p>
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500">calendar_today</span>
+<input class="form-input w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-slate-900 dark:text-slate-100 focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 focus:border-primary dark:focus:border-primary h-14 placeholder:text-slate-400 dark:placeholder:text-slate-500 pl-12 pr-4 text-base font-normal leading-normal" type="date" value=""/>
+</div>
+</label>
+</div>
+<label class="flex flex-col w-full gap-2">
+<p class="text-slate-900 dark:text-slate-100 text-base font-medium leading-normal">Nota Clínica</p>
+<textarea class="form-textarea w-full min-w-0 flex-1 resize-y overflow-hidden rounded-lg text-slate-900 dark:text-slate-100 focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 focus:border-primary dark:focus:border-primary placeholder:text-slate-400 dark:placeholder:text-slate-500 p-4 text-base font-normal leading-normal min-h-[200px]" placeholder="Escriba aquí los detalles de la sesión, observaciones y el progreso del paciente..."></textarea>
+</label>
+<div class="flex justify-end gap-4 mt-4">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-slate-100 text-sm font-bold leading-normal tracking-[0.015em]" type="button">
+<span class="truncate">Cancelar</span>
+</button>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] gap-2" type="submit">
+<span class="truncate">Guardar Nota</span>
+</button>
+</div>
+</form>
+</div>
+</div>
+</main>
+</div>
+
+<script>
+// ID del psicólogo: si luego tienes sesión, reemplaza por el ID real
+const ID_PSICOLOGO = 1;
+document.addEventListener('DOMContentLoaded', () => {
+  cargarPacientes();
+  const hoy = new Date().toISOString().split('T')[0];
+  const inputFecha = document.querySelector('input[type="date"]');
+  if (inputFecha) inputFecha.value = hoy;
+
+  const form = document.querySelector('form');
+  form.addEventListener('submit', guardarNota);
+  document.querySelector('button[type="button"]').addEventListener('click', () => {
+    if (confirm('Cancelar?')) window.location.href = 'VerNotas';
+  });
+});
+
+async function cargarPacientes() {
+  try {
+    const res = await fetch('api_pacientes.php');
+    const j = await res.json();
+    if (j.success) {
+      const select = document.querySelector('select');
+      j.data.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p.ID_Paciente;
+        opt.textContent = p.Nombre_Completo || (p.Nombre_Paciente + ' ' + p.Apellido_Paciente);
+        select.appendChild(opt);
+      });
+    } else console.error(j.message);
+  } catch (err) { console.error(err); }
+}
+
+async function guardarNota(e) {
+  e.preventDefault();
+  const select = document.querySelector('select');
+  const fecha = document.querySelector('input[type="date"]').value;
+  const contenido = document.querySelector('textarea').value.trim();
+  if (!select.value) { alert('Seleccione paciente'); return; }
+  if (!fecha) { alert('Seleccione fecha'); return; }
+  if (!contenido) { alert('Escriba el contenido'); return; }
+
+  const body = { ID_Paciente: parseInt(select.value), ID_Psicologo: ID_PSICOLOGO, Fecha_Sesion: fecha, Contenido: contenido, Resumen: contenido.substring(0,255) };
+  try {
+    const res = await fetch('api_notas.php?action=crear', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body)
+    });
+    const j = await res.json();
+    if (j.success) { alert('Nota creada'); window.location.href = 'VerNotas'; }
+    else alert('Error: ' + (j.message||''));
+  } catch (err) { console.error(err); alert('Error de conexión'); }
+}
+
+</script>
+
+</body></html>

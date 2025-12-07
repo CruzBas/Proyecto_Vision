@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Notas y Evolución del Paciente</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+  </style>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#13a4ec",
+            "background-light": "#f6f7f8",
+            "background-dark": "#101c22",
+          },
+          fontFamily: {
+            "display": ["Inter", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.5rem",
+            "lg": "1rem",
+            "xl": "1.5rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark">
+<div class="relative flex min-h-screen w-full">
+<!-- SideNavBar -->
+<aside class="flex h-screen w-64 flex-col border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark p-4 sticky top-0">
+<div class="flex flex-col gap-4">
+<div class="flex flex-col gap-2 mt-4">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/20 text-primary" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">note_stack</span>
+<p class="text-sm font-medium leading-normal">Notas y Evolución</p>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 p-8 grid grid-cols-12 gap-8">
+<div class="col-span-12 lg:col-span-8 flex flex-col gap-6">
+<!-- Encabezado de página -->
+<div class="flex flex-wrap justify-between items-center gap-3">
+<div class="flex flex-col gap-2">
+<h1 class="text-slate-900 dark:text-slate-100 text-4xl font-black leading-tight tracking-[-0.033em]">Notas y Evolución del Paciente</h1>
+<p class="text-slate-500 dark:text-slate-400 text-base font-normal leading-normal">Gestiona y rastrea las notas clínicas y el progreso terapéutico del paciente.</p>
+</div>
+<a href="CrearNotas.html" class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] gap-2" role="button">
+  <span class="material-symbols-outlined text-base">add</span>
+  <span class="truncate">Agregar Nueva Nota</span>
+</a>
+</div>
+<!-- Tabla de notas -->
+<div class="w-full bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left text-sm">
+<thead class="bg-slate-50 dark:bg-slate-800/50 text-slate-600 dark:text-slate-300 uppercase text-xs">
+<tr>
+<th class="px-6 py-3 font-medium">Fecha</th>
+<th class="px-6 py-3 font-medium">Paciente</th>
+<th class="px-6 py-3 font-medium">Resumen de Nota</th>
+<th class="px-6 py-3 font-medium">Última Actualización</th>
+<th class="px-6 py-3 font-medium text-right">Acciones</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-200 dark:divide-slate-800">
+  <!-- Sin datos hardcodeados: las filas se cargarán desde la base de datos -->
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-6">
+<!-- TextField -->
+<label class="flex flex-col w-full">
+<p class="text-slate-900 dark:text-slate-100 text-base font-medium leading-normal pb-2">Buscar Paciente</p>
+<div class="flex w-full items-stretch rounded-lg">
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-slate-900 dark:text-slate-100 focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 focus:border-primary dark:focus:border-primary h-14 placeholder:text-slate-400 dark:placeholder:text-slate-500 p-4 rounded-r-none border-r-0 text-base font-normal leading-normal" placeholder="Buscar o seleccionar paciente..." value=""/>
+<div class="text-slate-400 dark:text-slate-500 flex border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 items-center justify-center pr-4 rounded-r-lg border-l-0">
+<span class="material-symbols-outlined">search</span>
+</div>
+</div>
+<!-- Suggestions container -->
+<div id="patient-suggestions" class="mt-2 bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden hidden"></div>
+</label>
+<!-- Card -->
+<div class="flex flex-col gap-4 rounded-xl bg-white dark:bg-slate-900 p-4 shadow-sm border border-slate-200 dark:border-slate-800">
+<div class="flex items-start justify-between gap-4">
+<div class="flex flex-col gap-1">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal">Paciente Seleccionado</p>
+<p class="text-slate-900 dark:text-slate-100 text-base font-bold leading-tight">-</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal">Última sesión: -</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+<script>
+// Cargar y mostrar notas desde API
+let todasLasNotas = [];
+let pacientes = [];
+let pacienteSeleccionado = null;
+
+document.addEventListener('DOMContentLoaded', () => {
+  cargarPacientes();
+  cargarNotas();
+  const input = document.querySelector('input[placeholder*="Buscar"]');
+  input.addEventListener('input', e => {
+    const term = e.target.value;
+    mostrarSugerencias(term);
+    // also do free-text search on notes
+    buscarNotas(term);
+  });
+});
+
+// cargar notas (acepta pacienteId opcional)
+async function cargarNotas(pacienteId = null) {
+  try {
+    let url = 'api_notas.php?action=listar';
+    if (pacienteId) url += `&paciente_id=${pacienteId}`;
+    const res = await fetch(url);
+    const j = await res.json();
+    if (j.success) {
+      todasLasNotas = j.data;
+      mostrarNotas(todasLasNotas);
+    } else {
+      console.error(j.message);
+    }
+  } catch (err) { console.error(err); }
+}
+
+// Cargar lista de pacientes para sugerencias
+async function cargarPacientes() {
+  try {
+    const res = await fetch('api_pacientes.php');
+    const j = await res.json();
+    if (j.success) {
+      pacientes = j.data;
+    } else console.error(j.message);
+  } catch (err) { console.error(err); }
+}
+
+// Mostrar sugerencias debajo del input
+function mostrarSugerencias(term) {
+  const container = document.getElementById('patient-suggestions');
+  if (!term || !term.trim()) { container.classList.add('hidden'); container.innerHTML = ''; return; }
+  const q = term.toLowerCase();
+  const matches = pacientes.filter(p => (p.Nombre_Completo && p.Nombre_Completo.toLowerCase().includes(q)) || (p.Nombre_Paciente && p.Nombre_Paciente.toLowerCase().includes(q)));
+  if (matches.length === 0) { container.classList.add('hidden'); container.innerHTML = ''; return; }
+  container.classList.remove('hidden');
+  container.innerHTML = matches.slice(0,8).map(p => `
+    <div class="px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-800/50 cursor-pointer" data-id="${p.ID_Paciente}">
+      <div class="text-sm font-medium text-slate-900 dark:text-slate-100">${p.Nombre_Completo}</div>
+      <div class="text-xs text-slate-500 dark:text-slate-400">Edad: ${p.Edad || '-'} · Tel: ${p.Telefono_Paciente || '-'}</div>
+    </div>
+  `).join('');
+  // attach listeners
+  Array.from(container.querySelectorAll('div[data-id]')).forEach(el => {
+    el.addEventListener('click', () => selectPatient(parseInt(el.getAttribute('data-id'))));
+  });
+}
+
+// Seleccionar paciente: mostrar en card y filtrar notas
+function selectPatient(id) {
+  const p = pacientes.find(x => parseInt(x.ID_Paciente) === parseInt(id));
+  if (!p) return;
+  pacienteSeleccionado = p;
+  // actualizar card
+  const card = document.querySelector('.flex.flex-col.gap-4.rounded-xl');
+  const lines = card.querySelectorAll('p');
+  // lines[0] is label 'Paciente Seleccionado'
+  lines[1].textContent = p.Nombre_Completo || '-';
+  const ultima = p.Ultima_Sesion || p.Ultima_Cita || null;
+  lines[2].textContent = 'Última sesión: ' + (ultima ? new Date(ultima).toLocaleDateString('es-ES') : '-');
+  // añadir info importante debajo nombre (telefono/edad)
+  // if not present, append
+  let infoEl = card.querySelector('.patient-important');
+  if (!infoEl) {
+    infoEl = document.createElement('div');
+    infoEl.className = 'patient-important text-sm text-slate-600 dark:text-slate-300';
+    card.querySelector('.flex.flex-col.gap-1').appendChild(infoEl);
+  }
+  infoEl.textContent = `Teléfono: ${p.Telefono_Paciente || '-'} · Edad: ${p.Edad || '-'}`;
+
+  // hide suggestions
+  const container = document.getElementById('patient-suggestions');
+  container.classList.add('hidden');
+  container.innerHTML = '';
+
+  // filter notes by paciente
+  cargarNotas(p.ID_Paciente);
+}
+
+function mostrarNotas(notas) {
+  const tbody = document.querySelector('tbody');
+  if (!notas || notas.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="5" class="px-6 py-8 text-center text-slate-500">No se encontraron notas clínicas</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = notas.map(n => `
+    <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+      <td class="px-6 py-4 text-slate-900 dark:text-slate-100 font-medium">${formatDate(n.Fecha_Sesion)}</td>
+      <td class="px-6 py-4 text-slate-900 dark:text-slate-100">${n.Nombre_Paciente}</td>
+      <td class="px-6 py-4 text-slate-600 dark:text-slate-400">${(n.Resumen && n.Resumen.length>0)? n.Resumen : (n.Contenido.substring(0,100)+'...')}</td>
+      <td class="px-6 py-4 text-slate-500 dark:text-slate-400 text-xs">${timeAgo(n.Fecha_Actualizacion)}</td>
+      <td class="px-6 py-4 text-right">
+        <div class="flex justify-end gap-2">
+          <a href="EditarNotas?id=${n.ID_Nota}" class="inline-flex items-center justify-center h-8 w-8 rounded-lg text-primary hover:bg-primary/10"><span class="material-symbols-outlined text-base">edit</span></a>
+          <button onclick="confirmDelete(${n.ID_Nota})" class="inline-flex items-center justify-center h-8 w-8 rounded-lg text-red-600 hover:bg-red-50"><span class="material-symbols-outlined text-base">delete</span></button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function formatDate(d) {
+  if (!d) return '-';
+  const date = new Date(d);
+  return date.toLocaleDateString('es-ES');
+}
+
+function timeAgo(d) {
+  if (!d) return '-';
+  const date = new Date(d);
+  const diff = (Date.now() - date.getTime())/1000;
+  if (diff < 60) return 'Hace un momento';
+  if (diff < 3600) return `Hace ${Math.floor(diff/60)} minuto${Math.floor(diff/60)>1?'s':''}`;
+  if (diff < 86400) return `Hace ${Math.floor(diff/3600)} hora${Math.floor(diff/3600)>1?'s':''}`;
+  return date.toLocaleDateString('es-ES');
+}
+
+function buscarNotas(term) {
+  if (!term || !term.trim()) return mostrarNotas(todasLasNotas);
+  term = term.toLowerCase();
+  const filtered = todasLasNotas.filter(n => (n.Nombre_Paciente && n.Nombre_Paciente.toLowerCase().includes(term)) || (n.Resumen && n.Resumen.toLowerCase().includes(term)) || (n.Contenido && n.Contenido.toLowerCase().includes(term)));
+  mostrarNotas(filtered);
+}
+
+function confirmDelete(id) {
+  if (!confirm('¿Eliminar esta nota? Esta acción no se puede deshacer.')) return;
+  fetch(`api_notas.php?action=eliminar&id=${id}`, { method: 'POST' })
+    .then(r => r.json()).then(j => {
+      if (j.success) { cargarNotas(); alert('Nota eliminada'); }
+      else alert('Error: ' + (j.message||'')); 
+    }).catch(err => console.error(err));
+}
+
+</script>
+
+</body></html>

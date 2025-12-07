@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Panel Principal del Psicólogo</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#13a4ec",
+              "background-light": "#f6f7f8",
+              "background-dark": "#101c22",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-800 dark:text-slate-200">
+<div class="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<div class="flex flex-1 justify-center p-4 sm:p-6 md:p-8">
+<div class="layout-content-container flex flex-col max-w-4xl flex-1">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-slate-200 dark:border-slate-800 px-6 py-4 bg-white dark:bg-slate-900/50 rounded-lg shadow-sm">
+<div class="flex items-center gap-4 text-slate-900 dark:text-white">
+<div class="size-8 text-primary">
+<svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-xl font-bold tracking-tight">Vision</h2>
+</div>
+<div class="flex items-center gap-4">
+<button class="px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">Cerrar Sesión</button>
+</div>
+</header>
+<main class="flex-grow pt-8 sm:pt-12">
+<h1 class="text-slate-900 dark:text-white tracking-tight text-3xl sm:text-4xl font-bold px-4 text-left pb-2">Bienvenido de vuelta</h1>
+<p class="text-slate-500 dark:text-slate-400 text-base font-normal leading-normal pb-8 sm:pb-12 px-4">Aquí tienes una vista rápida de tu espacio de trabajo. Selecciona una opción para comenzar.</p>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 p-4">
+<a class="group flex flex-col gap-4 p-6 bg-white dark:bg-slate-900/50 rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300" href="#">
+<div class="flex items-center justify-center size-12 rounded-lg bg-primary/20 text-primary">
+<span class="material-symbols-outlined text-3xl">account_circle</span>
+</div>
+<div>
+<p class="text-slate-900 dark:text-white text-lg font-bold">Gestionar Perfil</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal">Actualiza tus detalles profesionales y disponibilidad.</p>
+</div>
+</a>
+<a class="group flex flex-col gap-4 p-6 bg-white dark:bg-slate-900/50 rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300" href="#">
+<div class="flex items-center justify-center size-12 rounded-lg bg-primary/20 text-primary">
+<span class="material-symbols-outlined text-3xl">groups</span>
+</div>
+<div>
+<p class="text-slate-900 dark:text-white text-lg font-bold">Mis Pacientes</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal">Accede y gestiona tu lista de pacientes.</p>
+</div>
+</a>
+<a class="group flex flex-col gap-4 p-6 bg-white dark:bg-slate-900/50 rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300" href="#">
+<div class="flex items-center justify-center size-12 rounded-lg bg-primary/20 text-primary">
+<span class="material-symbols-outlined text-3xl">calendar_month</span>
+</div>
+<div>
+<p class="text-slate-900 dark:text-white text-lg font-bold">Ver Citas</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal">Consulta tu agenda y gestiona tus reservas.</p>
+</div>
+</a>
+<a class="group flex flex-col gap-4 p-6 bg-white dark:bg-slate-900/50 rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300" href="#">
+<div class="flex items-center justify-center size-12 rounded-lg bg-primary/20 text-primary">
+<span class="material-symbols-outlined text-3xl">description</span>
+</div>
+<div>
+<p class="text-slate-900 dark:text-white text-lg font-bold">Notas Clínicas</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal">Crea, consulta y gestiona notas seguras de pacientes.</p>
+</div>
+</a>
+</div>
+</main>
+</div>
+</div>
+</div>
+</div>
+</body></html>
