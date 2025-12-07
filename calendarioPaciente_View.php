@@ -92,23 +92,36 @@ if (!$idPaciente) {
     <header class="border-b border-primary/20 dark:border-primary/10">
       <div class="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8 py-4">
         <div class="flex items-center gap-4">
-          <a href="Index.html">
-            <button>
-              <div class="w-8 h-8 text-primary">
-                <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z" fill="currentColor"></path>
-                </svg>
-              </div>
-            </button>
-          </a>
+         <a href="Index.php">
+          <button>
+            <div class="w-8 h-8 text-primary">
+              <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z"
+                  fill="currentColor"></path>
+              </svg>
+            </div>
+          </button>
+        </a>
           <h2 class="text-xl font-bold text-gray-800 dark:text-white">Vision</h2>
         </div>
         <nav class="hidden items-center gap-8 md:flex">
-          <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary" href="Index.html"><button>Pagina Principal</button></a>
-          <a class="text-sm font-medium text-slate-700 hover:text-primary dark:text-slate-300 dark:hover:text-primary" href="Servicios.html"><button>Servicios</button></a>
-          <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary" href="Nosotros.html"><button>Sobre Nosotros</button></a>
-          <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary" href="mensaje.php"><button>Contacto</button></a>
+          <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
+            href="Index.php"><button>Pagina Principal</button></a>
+            <a class="text-sm font-medium text-slate-700 hover:text-primary dark:text-slate-300 dark:hover:text-primary"
+            href="Servicios.php"><button>Servicios</button></a>
+          <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
+            href="Nosotros.php"><button>Sobre Nosotros</button></a>
+          <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
+            href="mensaje.php"><button>Contactacto</button></a>
         </nav>
+        <div class="flex items-center gap-4">
+          <a href="perfil.php">
+              <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
+                style='background-image: url("https://cdn-icons-png.flaticon.com/512/11753/11753627.png");'>
+              </div>
+            </a>
+        </div>
       </div>
     </header>
 

@@ -77,9 +77,11 @@ $userId = $_SESSION['user_id'];
             href="mensaje.php"><button>Contactacto</button></a>
         </nav>
         <div class="flex items-center gap-4">
-          <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
-            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCVwv-zS-uQ4jQkoGZ114abTXXqEX-c3xiMOh4s9_EPt3GoQHd2WOeJroq3oiNMJ5KbtQTAAOn3wilUGvp35adPvzlib0BCn49l08Y2GYRjAgMMB33pGCdMy3aH7BkrVr0zOMB7JBdAMbPVcwVbPmszNA3ZAPvuVoXQl6KpwehiIbxoBrP88-Pn3ersPqFfletB5gpscpKA2UzFNq6fD5hl5rscKhRFMCGk0b_mTq6GuUVUy_7PJmi8Mrle6oVB8KXkA79J6SO6FbA");'>
-          </div>
+          <a href="perfil.php">
+              <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
+                style='background-image: url("https://cdn-icons-png.flaticon.com/512/11753/11753627.png");'>
+              </div>
+            </a>
         </div>
       </div>
     </header>

@@ -206,7 +206,7 @@ $Loggeado = isset($_SESSION['user_id']);
             <a class="text-sm text-slate-600 hover:text-primary dark:text-slate-400 dark:hover:text-primary"
               <a class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary" href="Politica.php"><button>Politica de privacidad</button></a>
             <a class="text-sm text-slate-600 hover:text-primary dark:text-slate-400 dark:hover:text-primary"
-              href="#">Terminos de servicio</a>
+              href="Terminos.php">Terminos de servicio</a>
           </div>
           <p class="text-sm text-slate-500 dark:text-slate-400">© 2025 Vision. All rights reserved.</p>
         </div>
