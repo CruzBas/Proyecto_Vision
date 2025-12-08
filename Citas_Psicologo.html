@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Mis Citas - Psicólogo</title>
+    <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect" />
+    <link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter:wght@400;500;700;900"
+        onload="this.rel='stylesheet'" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13a4ec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101c22",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+    <style>
+      .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+      .estado-pendiente { background-color: #fbbf24; color: #78350f; }
+      .estado-confirmada { background-color: #86efac; color: #15803d; }
+      .estado-completada { background-color: #93c5fd; color: #1e3a8a; }
+      .estado-cancelada { background-color: #fca5a5; color: #7f1d1d; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+<div class="relative flex min-h-screen w-full">
+<main class="flex-1 p-8 w-full">
+    <!-- Header -->
+    <header class="bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm sticky top-0 z-10 border-b">
+        <div class="container mx-auto px-10 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="text-primary h-8 w-8">
+                        <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_6_319)">
+                                <path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z" fill="currentColor"></path>
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_6_319">
+                                    <rect fill="white" height="48" width="48"></rect>
+                                </clipPath>
+                            </defs>
+                        </svg>
+                    </div>
+                    <h1 class="text-xl font-bold text-neutral-text-light dark:text-neutral-text-dark">Mis Citas</h1>
+                </div>
+
+                <nav class="hidden md:flex items-center gap-8 ml-6">
+                    <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="Index.html">Página principal</a>
+                    <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="Servicios.html">Servicios</a>
+                    <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="Nosotros.html">Sobre nosotros</a>
+                    <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="mensaje.html">Contacto</a>
+                </nav>
+            </div>
+
+            <div class="flex flex-1 justify-end gap-4 items-center">
+                <button class="flex h-10 w-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg border border-neutral-border-light bg-white dark:border-neutral-border-dark dark:bg-neutral-border-dark/30">
+                    <span class="material-symbols-outlined text-xl text-gray-600 dark:text-gray-300">notifications</span>
+                </button>
+                <button onclick="window.location.href='logout.php'" class="px-4 py-2 rounded-lg border border-primary text-primary hover:bg-primary hover:text-white transition-colors text-sm font-medium">
+                    Cerrar sesión
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Alertas -->
+    <div id="alertaExito" class="hidden mt-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg"></div>
+    <div id="alertaGeneral" class="hidden mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg"></div>
+
+    <!-- Filtros -->
+    <div class="mt-8 flex flex-wrap items-center gap-4">
+        <div class="flex-grow">
+            <label class="flex flex-col w-full min-w-72">
+                <div class="flex w-full items-stretch rounded-lg h-12 bg-white border focus-within:ring-2 focus-within:ring-primary">
+                    <div class="flex items-center justify-center pl-4 text-gray-500">
+                        <span class="material-symbols-outlined">search</span>
+                    </div>
+                    <input id="f_paciente" class="form-input flex w-full border-none bg-transparent h-full px-4 pl-2 text-base"
+                        placeholder="Buscar por nombre del paciente..."/>
+                </div>
+            </label>
+        </div>
+        <select id="f_estado" class="flex h-10 items-center rounded-lg border px-4 text-sm font-medium bg-white dark:bg-neutral-border-dark/30">
+            <option value="">Estado: Todos</option>
+            <option value="Pendiente">Pendiente</option>
+            <option value="Confirmada">Confirmada</option>
+            <option value="Completada">Completada</option>
+            <option value="Cancelada">Cancelada</option>
+        </select>
+        <select id="f_ordenamiento" class="flex h-10 items-center rounded-lg border px-4 text-sm font-medium bg-white dark:bg-neutral-border-dark/30" onchange="aplicarOrdenamiento()">
+            <option value="">Ordenar: Predeterminado</option>
+            <option value="fecha_asc">Fecha (Más Antiguas)</option>
+            <option value="fecha_desc">Fecha (Más Recientes)</option>
+            <option value="id_asc">ID (Menor a Mayor)</option>
+            <option value="id_desc">ID (Mayor a Menor)</option>
+        </select>
+    </div>
+
+    <!-- Loader -->
+    <div id="loader" class="hidden mt-8 flex justify-center">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+    </div>
+
+    <!-- Tabla de Citas -->
+    <div class="mt-6">
+        <div class="overflow-hidden rounded-lg border bg-white dark:bg-neutral-border-dark/30">
+            <div class="overflow-x-auto">
+                <table class="w-full min-w-[1024px] text-left">
+                    <thead class="bg-gray-200 dark:bg-neutral-border-dark">
+                        <tr>
+                            <th class="p-4 text-sm font-semibold">ID Cita</th>
+                            <th class="p-4 text-sm font-semibold">Paciente</th>
+                            <th class="p-4 text-sm font-semibold">Teléfono</th>
+                            <th class="p-4 text-sm font-semibold">Correo</th>
+                            <th class="p-4 text-sm font-semibold">Fecha y Hora</th>
+                            <th class="p-4 text-sm font-semibold">Motivo</th>
+                            <th class="p-4 text-sm font-semibold">Duración (min)</th>
+                            <th class="p-4 text-sm font-semibold">Estado</th>
+                            <th class="p-4 text-sm font-semibold text-right">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody_citas" class="divide-y dark:divide-gray-700">
+                        <!-- Se renderiza via Citas_Psicologo.js -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="flex items-center justify-between p-4 border-t dark:border-gray-700">
+                <span class="text-sm text-gray-500">Mostrando resultados</span>
+            </div>
+        </div>
+    </div>
+</main>
+</div>
+
+<!-- Modal para cambiar estado -->
+<div id="modalCambiarEstado" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white dark:bg-neutral-border-dark/50 rounded-lg p-6 max-w-md w-full mx-4">
+        <h2 class="text-xl font-bold mb-4">Cambiar Estado de Cita</h2>
+        <p id="modalCitaInfo" class="mb-4 text-sm text-gray-600 dark:text-gray-300"></p>
+        <select id="modalEstadoSelect" class="w-full p-2 border rounded-lg mb-4 bg-white dark:bg-neutral-border-dark/30">
+            <option value="Pendiente">Pendiente</option>
+            <option value="Confirmada">Confirmada</option>
+            <option value="Completada">Completada</option>
+            <option value="Cancelada">Cancelada</option>
+        </select>
+        <div class="flex gap-2 justify-end">
+            <button onclick="cerrarModal()" class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-neutral-border-dark">Cancelar</button>
+            <button onclick="guardarCambioEstado()" class="px-4 py-2 rounded-lg bg-primary text-white hover:bg-primary/90">Guardar</button>
+        </div>
+    </div>
+</div>
+
+<!-- Import de AJAX -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Import de js -->
+<script src="Citas_Psicologo.js"></script>
+</body>
+</html>
