@@ -42,13 +42,14 @@ $jsData = [
     'Especialidad' => $Especialidad
 ];
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Vision - Panel de Usuario</title>
+    <title>Vision - Panel de Psicologo</title>
     <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect" />
     <link as="style" href="https://fonts.googleapis.com/css2?display=swap&family=Inter:wght@400;500;700;900"
         onload="this.rel='stylesheet'" rel="stylesheet" />
@@ -71,22 +72,6 @@ $jsData = [
         }
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/locales-all.global.min.js"></script>
-
-    <style>
-        .fc .fc-button {
-            background-color: #13a4ec !important;
-            border: none;
-            color: white;
-            text-transform: capitalize;
-        }
-
-        .fc-event {
-            cursor: pointer;
-        }
-    </style>
 
     <script>
         const usuarioSesion = <?php echo json_encode($jsData); ?>;
@@ -129,16 +114,6 @@ $jsData = [
                     </div>
                     <h1 class="text-xl font-bold text-slate-900 dark:text-white">Vision</h1>
                 </div>
-                <nav class="hidden md:flex items-center gap-8">
-                    <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors"
-                        href="Index.php">Página principal</a>
-                    <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors"
-                        href="Servicios.php">Servicios</a>
-                    <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors"
-                        href="Nosotros.php">Sobre nosotros</a>
-                    <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors"
-                        href="mensaje.php">Contacto</a>
-                </nav>
                 <div class="flex items-center">
                     <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ml-4"></div>
                 </div>
@@ -156,8 +131,9 @@ $jsData = [
                     <h1 id="perfilName" class="text-gray-900 dark:text-white font-bold text-lg">
                         <?php echo htmlspecialchars($nombreCompleto); ?>
                     </h1>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">Paciente</p>
                     <p class="text-sm text-gray-500 dark:text-gray-400">
-                        <?php echo htmlspecialchars($Especialidad); ?>
+                        <?php echo htmlspecialchars($_SESSION['user_email']); ?>
                     </p>
                 </div>
             </div>
@@ -207,70 +183,57 @@ $jsData = [
 
                 <div id="dashboardPanel">
                     <h1 id="welcomeTitle" class="text-4xl font-bold text-gray-900 dark:text-white mb-8">¡Bienvenido,
-                        <?php echo htmlspecialchars($nombreCompleto); ?>!
-                    </h1>
+                        <?php echo htmlspecialchars($nombreCompleto); ?>!</h1>
+
                 </div>
-            </div>
-    </div>
 
+                <div id="Configuracion_Panel"
+                    class="hidden bg-white dark:bg-background-dark/50 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700/50">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Ajustes</h2>
+                    <div class="space-y-6">
+                        <div
+                            class="flex items-center justify-between p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg">
+                            <div>
+                                <p class="text-sm text-gray-500 mb-1">Información Personal</p>
+                                <p class="font-semibold text-gray-900 dark:text-gray-100 text-lg">Datos del Perfil</p>
+                                <p class="text-xs text-gray-400">Nombre, edad, teléfono</p>
+                            </div>
+                            <button id="openProfileModalBtn"
+                                class="px-4 py-2 bg-primary/10 text-primary hover:bg-primary/20 rounded-lg text-sm font-medium transition-colors flex items-center gap-2">
+                                <span class="material-symbols-outlined text-lg">edit</span> Editar
+                            </button>
+                        </div>
 
-    <div id="Configuracion_Panel"
-        class="hidden bg-white dark:bg-background-dark/50 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700/50">
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Ajustes</h2>
-        <div class="space-y-6">
-            <div
-                class="flex items-center justify-between p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg">
-                <div>
-                    <p class="text-sm text-gray-500 mb-1">Información Personal</p>
-                    <p class="font-semibold text-gray-900 dark:text-gray-100 text-lg">Datos del Perfil</p>
-                    <p class="text-xs text-gray-400">Nombre, edad, teléfono</p>
+                        <div
+                            class="flex items-center justify-between p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg">
+                            <div>
+                                <p class="text-sm text-gray-500">Correo electrónico</p>
+                                <p id="settingsEmail" class="font-semibold text-gray-900 dark:text-gray-100">
+                                    <?php echo htmlspecialchars($_SESSION['user_email']); ?></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 border-t pt-4 flex justify-between items-center">
+                        <div class="text-sm text-gray-500">¿Necesitas ayuda? <a href="mensaje.php"
+                                class="text-primary">Contáctanos</a></div>
+                    </div>
                 </div>
-                <button id="openProfileModalBtn"
-                    class="px-4 py-2 bg-primary/10 text-primary hover:bg-primary/20 rounded-lg text-sm font-medium transition-colors flex items-center gap-2">
-                    <span class="material-symbols-outlined text-lg">edit</span> Editar
-                </button>
-            </div>
 
-            <div
-                class="flex items-center justify-between p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg">
-                <div>
-                    <p class="text-sm text-gray-500">Correo electrónico</p>
-                    <p id="settingsEmail" class="font-semibold text-gray-900 dark:text-gray-100">
-                        <?php echo htmlspecialchars($_SESSION['user_email']); ?>
-                    </p>
-                </div>
             </div>
-        </div>
-        <div class="mt-8 border-t pt-4 flex justify-between items-center">
-            <div class="text-sm text-gray-500">¿Necesitas ayuda? <a href="mensaje.php"
-                    class="text-primary">Contáctanos</a></div>
-        </div>
+        </main>
     </div>
 
+    <div id="confirmarOverlay"
+        class="fixed inset-0 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 z-50">
     </div>
-    </main>
-    </div>
-
-    <button id="appOpcionesOverlay" onclick="window.Cerrar_CitaModal()"
-        class="fixed inset-0 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 z-40"></button>
-    <div id="apptOpcionesModal" class="fixed inset-0 flex items-center justify-center pointer-events-none z-50 px-4">
-        <div id="apptModalCard"
-            class="bg-white dark:bg-gray-800 rounded-2xl p-6 w-full max-w-sm shadow-2xl border border-gray-200 dark:border-gray-700 transform scale-95 opacity-0 transition-all duration-300">
-            <div class="text-center mb-6">
-                <h3 class="text-xl font-bold text-gray-900 dark:text-white">Opciones de Cita</h3>
-                <p id="modalCita_Info" class="text-sm text-gray-500 dark:text-gray-400 mt-1">Selecciona una acción</p>
-            </div>
-            <div class="space-y-3">
-                <button onclick="window.handleEditAppointment()"
-                    class="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg">
-                    <span class="material-symbols-outlined text-sm">edit</span> Editar
-                </button>
-                <button onclick="window.Eliminar_cita()"
-                    class="w-full flex items-center justify-center gap-2 bg-white dark:bg-gray-800 border border-red-200 text-red-600 hover:bg-red-50 font-medium py-2.5 px-4 rounded-lg">
-                    <span class="material-symbols-outlined text-sm">delete</span> Cancelar cita
-                </button>
-                <button onclick="window.Cerrar_CitaModal()"
-                    class="w-full text-gray-500 hover:text-gray-700 text-sm font-medium py-2">Volver atrás</button>
+    <div id="confirmaModal"
+        class="fixed inset-0 flex items-center justify-center pointer-events-none opacity-0 transition-all duration-300 z-50">
+        <div
+            class="bg-white dark:bg-gray-800 rounded-lg p-6 w-[90%] max-w-md shadow-xl border border-gray-200 dark:border-gray-700 transform scale-95">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">Confirmar cierre de sesión</h3>
+            <div class="flex justify-end gap-3 mt-4">
+                <button id="cancelarLogout" class="px-4 py-2 rounded-md bg-gray-100 dark:bg-gray-700">Cancelar</button>
+                <button id="confirmarLogout" class="px-4 py-2 rounded-md bg-red-600 text-white">Cerrar sesión</button>
             </div>
         </div>
     </div>

@@ -57,7 +57,7 @@
     }
 
     function Cambio_modal(ModalActivo) {
-        [dashboardPanel, Configuracion_Panel, HistorialPanel].forEach(p => {
+        [dashboardPanel, Configuracion_Panel].forEach(p => {
             if (p) p.classList.add('hidden');
         });
         if (ModalActivo) ModalActivo.classList.remove('hidden');
@@ -69,12 +69,6 @@
         setActive(overviewBtn);
     });
 
-    if (HistorialBtn) HistorialBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        Cambio_modal(HistorialPanel);
-        setActive(HistorialBtn);
-    });
-
     if (Configuracion_Btn) Configuracion_Btn.addEventListener('click', (e) => {
         e.preventDefault();
         Cambio_modal(Configuracion_Panel);
@@ -83,8 +77,6 @@
     });
 
     setActive(overviewBtn);
-
-
 
     
     // LOGICA MODAL ACTUALIZAR PERFIL
@@ -209,6 +201,12 @@
         perfilContainer.classList.add('opacity-0', 'pointer-events-none');
         perfilContainer.querySelector('div').classList.add('scale-95');
         perfilContainer.querySelector('div').classList.remove('scale-100');
-    }    
+    }
+
+    if (profOpenBtn) profOpenBtn.addEventListener('click', Abrir_PerfilModal);
+    if (perfilCloseBtn) perfilCloseBtn.addEventListener('click', Cerrar_CitaModal);
+    if (profCancelBtn) profCancelBtn.addEventListener('click', Cerrar_CitaModal);
+    if (profSaveBtn) profSaveBtn.addEventListener('click', guardar_Info_Perfil);
+    if (profOverlay) profOverlay.addEventListener('click', Cerrar_CitaModal);
 
 })();
