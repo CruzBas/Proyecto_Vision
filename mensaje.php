@@ -291,26 +291,21 @@ $Loggeado = isset($_SESSION['user_id']);
   }
 
   // ENVÍO REAL DEL FORMULARIO
-  fetch("sendMail.php", {
+  fetch("enviar.php", {
     method: "POST",
-    body: formData
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (data.status === "ok") {
-      showAlert("Mensaje enviado correctamente.");
-      form.reset();
+    body: new FormData(form)
+})
+.then(res => res.json())
+.then(data => {
+    if (data.ok) {
+        showAlert("Mensaje enviado correctamente");
+        form.reset();
     } else {
-      showAlert("Error al enviar el mensaje.", "error");
+        showAlert("Error: " + data.error, "error");
     }
-  })
-  .catch(() => {
-    showAlert("No se pudo conectar con el servidor.", "error");
-  })
-  .finally(() => {
-    submitBtn.disabled = false;
-    submitBtn.removeAttribute('aria-busy');
-  });
+})
+.catch(() => showAlert("No se pudo conectar con el servidor", "error"));
+
 });
 
     
