@@ -107,8 +107,8 @@ async function cargarDatos() {
         
         // Guardar IDs para el UPDATE
         datosActuales = {
-            id_paciente: p.ID_Paciente,
-            id_usuario: p.ID_Usuario
+            id_paciente: p.ID_Paciente || 0, // 0 si no existe paciente asociado
+            id_usuario: p.ID_Usuario // Siempre debe existir
         };
         
         // Llenar los campos
@@ -209,7 +209,7 @@ btnGuardar.addEventListener("click", async () => {
     }
     
     const datos = {
-        id_paciente: datosActuales.id_paciente,
+        id_paciente: datosActuales.id_paciente || 0, // 0 si no existe paciente asociado
         id_usuario: datosActuales.id_usuario,
         nombre: nombre.value.trim(),
         apellido: apellido.value.trim(),
